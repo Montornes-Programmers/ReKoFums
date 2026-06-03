@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Perfume — ReKoFum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="perfumes.html" class="nav-link active">Perfumes</a>
+        <a href="marcas.html" class="nav-link">Marcas</a>
+        <a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link">Artículos</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button>
+        <button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Inicio</a><a href="perfumes.html">Perfumes</a>
+    </div>
+  </header>
+
+  <div class="perfume-detail" id="perfumeDetail">
+    <!-- Se rellena por JS -->
+  </div>
+
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button>
+        <button class="modal-tab" onclick="switchTab(this,'registerTab')">Registrarse</button>
+      </div>
+      <div id="loginTab" class="modal-form active">
+        <h3>Inicia sesión para comentar</h3>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Entrar</button>
+      </div>
+      <div id="registerTab" class="modal-form">
+        <h3>Únete a ReKoFum</h3>
+        <input type="text" placeholder="Nombre de usuario">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Crear cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(location.search);
+      const id = parseInt(params.get('id')) || 1;
+      const perfume = perfumesDB.find(p => p.id === id) || perfumesDB[0];
+      document.title = `${perfume.nombre} — ${perfume.marca} | ReKoFum`;
+      renderPerfumeDetail(perfume);
+    });
+
+    function renderPerfumeDetail(p) {
+      const similares = perfumesDB.filter(x => x.id !== p.id && x.familia?.some(f => p.familia?.includes(f))).slice(0,4);
+      const stars = renderStars(p.rating);
+      document.getElementById('perfumeDetail').innerHTML = `
+        <div class="breadcrumb">
+          <a href="index.html">Inicio</a> / <a href="perfumes.html">Perfumes</a> / <a href="marcas.html?id=${p.marcaId}">${p.marca}</a> / <span>${p.nombre}</span>
+        </div>
+
+        <div class="pd-hero">
+          <div class="pd-bottle-col">
+            <div class="pd-bottle" style="background:${p.bottleColor || 'linear-gradient(160deg,#F5EEE4,#D4BC99)'}">
+              <div class="pd-bottle-shine"></div>
+              <div class="pd-bottle-label-wrap">
+                <span class="pd-bottle-name">${p.nombre}</span>
+                <span class="pd-bottle-brand">${p.marca}</span>
+              </div>
+            </div>
+            <div class="pd-actions-col">
+              <button class="pd-action-btn like-btn" id="likeBtn" onclick="toggleLike(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                Me gusta
+              </button>
+              <button class="pd-action-btn" onclick="toggleSave(this)">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+                Guardar
+              </button>
+              <button class="pd-action-btn" onclick="shareThis()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                Compartir
+              </button>
+            </div>
+          </div>
+
+          <div class="pd-info-col">
+            <div class="pd-brand-link"><a href="marcas.html?id=${p.marcaId}">${p.marca}</a></div>
+            <h1 class="pd-name">${p.nombre}</h1>
+            <div class="pd-meta-row">
+              <span class="pd-pill gender">${p.genero}</span>
+              <span class="pd-pill">${p.año}</span>
+              ${p.familia?.map(f => `<span class="pd-pill family">${f}</span>`).join('') || ''}
+            </div>
+            <div class="pd-rating-row">
+              <div class="pd-stars">${stars}</div>
+              <span class="pd-rating-num">${p.rating.toFixed(1)}</span>
+              <span class="pd-rating-count">${p.votos.toLocaleString()} votos</span>
+            </div>
+
+            <!-- PIRÁMIDE OLFATIVA -->
+            <div class="pd-section">
+              <div class="pd-section-title">Pirámide olfativa</div>
+              <div class="pyramid-grid">
+                <div class="pyramid-tier">
+                  <div class="pyramid-tier-label">Salida</div>
+                  ${p.notas?.salida?.map(n => `<span class="note-chip" onclick="goTo('perfumes.html?nota=${n}')">${n}</span>`).join('') || ''}
+                </div>
+                <div class="pyramid-tier">
+                  <div class="pyramid-tier-label">Corazón</div>
+                  ${p.notas?.corazon?.map(n => `<span class="note-chip" onclick="goTo('perfumes.html?nota=${n}')">${n}</span>`).join('') || ''}
+                </div>
+                <div class="pyramid-tier">
+                  <div class="pyramid-tier-label">Fondo</div>
+                  ${p.notas?.fondo?.map(n => `<span class="note-chip" onclick="goTo('perfumes.html?nota=${n}')">${n}</span>`).join('') || ''}
+                </div>
+              </div>
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+            <div class="pd-section">
+              <div class="pd-section-title">Descripción</div>
+              <p class="pd-desc">${p.descripcion || ''}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- VOTOS COMUNIDAD -->
+        <div class="pd-community-votes">
+          <h2 class="pd-h2">Votos de la comunidad</h2>
+          <div class="votes-grid">
+            <div class="vote-card">
+              <div class="vote-card-title">Duración</div>
+              <div class="vote-bar-wrap">
+                <div class="vote-bar-track"><div class="vote-bar-fill" style="width:${p.duracion || 65}%"></div></div>
+              </div>
+              <div class="vote-bar-ends"><span>Efímera</span><span>Larga duración</span></div>
+              <div class="vote-percent">${p.duracion || 65}% larga duración</div>
+            </div>
+            <div class="vote-card">
+              <div class="vote-card-title">Proyección</div>
+              <div class="vote-bar-wrap">
+                <div class="vote-bar-track"><div class="vote-bar-fill" style="width:${p.proyeccion || 58}%"></div></div>
+              </div>
+              <div class="vote-bar-ends"><span>Íntima</span><span>Bestial</span></div>
+              <div class="vote-percent">${p.proyeccion || 58}% moderada-fuerte</div>
+            </div>
+            <div class="vote-card">
+              <div class="vote-card-title">Mejor estación</div>
+              <div class="season-chips">
+                ${(p.estacion || ['otono']).map(s => `<span class="season-chip active">${s}</span>`).join('')}
+                ${['primavera','verano','otono','invierno'].filter(s => !(p.estacion||[]).includes(s)).map(s => `<span class="season-chip">${s}</span>`).join('')}
+              </div>
+            </div>
+            <div class="vote-card">
+              <div class="vote-card-title">Momento del día</div>
+              <div class="daytime-chart">
+                <div class="daytime-bar">
+                  <div class="daytime-fill day" style="width:${p.dia || 30}%"></div>
+                  <div class="daytime-fill night" style="width:${100-(p.dia||30)}%"></div>
+                </div>
+                <div class="daytime-labels">
+                  <span>Día ${p.dia || 30}%</span>
+                  <span>Noche ${100-(p.dia||30)}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="vote-cta">
+            <button class="btn-vote" onclick="openModal('loginModal')">Votar este perfume</button>
+          </div>
+        </div>
+
+        <!-- TABS REVIEWS / COMENTARIOS -->
+        <div class="pd-reviews-section">
+          <div class="tabs-bar">
+            <button class="tab active" onclick="switchReviewTab(this,'reviewsList')">Reseñas (${p.reviews?.length || 0})</button>
+            <button class="tab" onclick="switchReviewTab(this,'comentarios')">Comentarios</button>
+          </div>
+
+          <div id="reviewsList" class="tab-panel active">
+            <div class="reviews-list">
+              ${(p.reviews || []).map(r => `
+                <div class="review-card">
+                  <div class="review-header">
+                    <div class="review-avatar">${r.user.slice(0,2).toUpperCase()}</div>
+                    <div>
+                      <div class="review-user">${r.user}</div>
+                      <div class="review-meta">${renderStars(r.rating)} · ${r.fecha}</div>
+                    </div>
+                    <div class="review-likes"><button onclick="likeReview(this)">♡ ${r.likes}</button></div>
+                  </div>
+                  <p class="review-text">${r.texto}</p>
+                  <div class="review-tags">
+                    ${r.tags?.map(t => `<span>${t}</span>`).join('') || ''}
+                  </div>
+                </div>
+              `).join('')}
+              ${(p.reviews||[]).length === 0 ? '<p class="empty-state">Sé el primero en reseñar este perfume.</p>' : ''}
+            </div>
+            <div class="write-review">
+              <h3>Escribe tu reseña</h3>
+              <div class="star-input" id="starInput">
+                ${[1,2,3,4,5].map(n => `<span onclick="setRating(${n})" data-star="${n}">☆</span>`).join('')}
+              </div>
+              <textarea placeholder="Comparte tu experiencia con esta fragancia..." rows="4"></textarea>
+              <button class="btn-primary" onclick="openModal('loginModal')">Publicar reseña</button>
+            </div>
+          </div>
+
+          <div id="comentarios" class="tab-panel">
+            <p class="empty-state">Los comentarios están disponibles para usuarios registrados.</p>
+            <button class="btn-primary" onclick="openModal('loginModal')">Entrar para comentar</button>
+          </div>
+        </div>
+
+        <!-- SIMILARES -->
+        <div class="pd-similar">
+          <h2 class="pd-h2">Perfumes similares</h2>
+          <div class="similar-grid">
+            ${similares.map(s => `
+              <a href="perfume.html?id=${s.id}" class="similar-card">
+                <div class="similar-bottle" style="background:${s.bottleColor||'linear-gradient(135deg,#F5EEE4,#D4BC99)'}"></div>
+                <div class="similar-info">
+                  <div class="similar-name">${s.nombre}</div>
+                  <div class="similar-brand">${s.marca}</div>
+                  <div class="similar-rating">${renderStars(s.rating)}</div>
+                </div>
+              </a>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function toggleLike(btn) {
+      btn.classList.toggle('active');
+      btn.innerHTML = btn.classList.contains('active')
+        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Te gusta`
+        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Me gusta`;
+    }
+    function toggleSave(btn) {
+      btn.classList.toggle('active');
+      btn.innerHTML = btn.classList.contains('active')
+        ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Guardado`
+        : `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Guardar`;
+    }
+    function shareThis() {
+      navigator.clipboard?.writeText(location.href);
+      alert('¡Enlace copiado al portapapeles!');
+    }
+    function switchReviewTab(btn, panelId) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(panelId)?.classList.add('active');
+    }
+    function setRating(n) {
+      document.querySelectorAll('#starInput span').forEach((s,i) => {
+        s.textContent = i < n ? '★' : '☆';
+        s.style.color = i < n ? '#C9A86C' : '';
+      });
+    }
+    function likeReview(btn) {
+      const n = parseInt(btn.textContent.replace(/\D/g,''));
+      btn.textContent = `♥ ${n+1}`;
+      btn.style.color = '#C9A86C';
+    }
+  </script>
+</body>
+</html>
+
