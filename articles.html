@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artículos — ReKoFum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a><a href="perfumes.html" class="nav-link">Perfumes</a>
+        <a href="marcas.html" class="nav-link">Marcas</a><a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link active">Artículos</a>
+      </nav>
+      <div class="header-actions"><button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button><button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button></div>
+      <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu"><a href="index.html">Inicio</a><a href="perfumes.html">Perfumes</a></div>
+  </header>
+
+  <div style="max-width:1280px;margin:0 auto;padding:calc(64px + 48px) 24px 64px;">
+    <div class="section-header" style="margin-bottom:36px;">
+      <h1 style="font-family:var(--serif);font-size:40px;font-weight:600;">Editorial</h1>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button onclick="filterArticles('all')" class="article-filter-btn active">Todos</button>
+        <button onclick="filterArticles('Novedades')" class="article-filter-btn">Novedades</button>
+        <button onclick="filterArticles('Guías')" class="article-filter-btn">Guías</button>
+        <button onclick="filterArticles('Top listas')" class="article-filter-btn">Top listas</button>
+        <button onclick="filterArticles('Historia')" class="article-filter-btn">Historia</button>
+        <button onclick="filterArticles('Tendencias')" class="article-filter-btn">Tendencias</button>
+      </div>
+    </div>
+    <div class="articles-grid" id="articlesFullGrid"></div>
+  </div>
+
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs"><button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button><button class="modal-tab" onclick="switchTab(this,'registerTab')">Registrarse</button></div>
+      <div id="loginTab" class="modal-form active"><h3>Bienvenido de nuevo</h3><input type="email" placeholder="Email"><input type="password" placeholder="Contraseña"><button class="btn-primary-full">Entrar</button></div>
+      <div id="registerTab" class="modal-form"><h3>Únete</h3><input type="text" placeholder="Usuario"><input type="email" placeholder="Email"><input type="password" placeholder="Contraseña"><button class="btn-primary-full">Crear cuenta</button></div>
+    </div>
+  </div>
+
+  <style>
+    .article-filter-btn { padding: 7px 16px; border: 0.5px solid var(--gray-300); border-radius: 20px; font-size: 12px; cursor: pointer; color: var(--gray-700); background: var(--white); transition: all 0.2s; font-family: var(--sans); }
+    .article-filter-btn:hover, .article-filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+  </style>
+  <script src="data.js"></script><script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => renderArticles(articulosDB));
+    function renderArticles(data) {
+      document.getElementById('articlesFullGrid').innerHTML = data.map(a => `
+        <a href="#" class="article-card" onclick="return false;">
+          <div class="article-img art-${a.imagen}"></div>
+          <div class="article-info">
+            <span class="article-cat">${a.categoria}</span>
+            <h3 class="article-title">${a.titulo}</h3>
+            <p class="article-resumen">${a.resumen}</p>
+            <span class="article-fecha">${a.fecha}</span>
+          </div>
+        </a>
+      `).join('');
+    }
+    function filterArticles(cat) {
+      document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      const filtered = cat === 'all' ? articulosDB : articulosDB.filter(a => a.categoria === cat);
+      renderArticles(filtered);
+    }
+  </script>
+</body>
+</html>
