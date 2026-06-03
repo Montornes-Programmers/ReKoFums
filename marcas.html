@@ -1,0 +1,76 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcas — ReKoFum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a><a href="perfumes.html" class="nav-link">Perfumes</a>
+        <a href="marcas.html" class="nav-link active">Marcas</a><a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link">Artículos</a>
+      </nav>
+      <div class="header-actions"><button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button><button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button></div>
+      <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu"><a href="index.html">Inicio</a><a href="perfumes.html">Perfumes</a><a href="marcas.html">Marcas</a></div>
+  </header>
+
+  <div class="page-wrap">
+    <div class="page-hero-sm"><h1>Marcas de Perfumería</h1><p>Descubre el universo de las casas de perfumes más icónicas del mundo</p></div>
+    <div class="brands-filter-bar">
+      <input type="text" placeholder="Buscar marca..." oninput="filterBrands(this.value)" class="brand-search-input">
+      <div class="alphabet-filter" id="alphabetFilter"></div>
+    </div>
+    <div class="brands-full-grid" id="brandsFullGrid"></div>
+  </div>
+
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs"><button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button><button class="modal-tab" onclick="switchTab(this,'registerTab')">Registrarse</button></div>
+      <div id="loginTab" class="modal-form active"><h3>Bienvenido de nuevo</h3><input type="email" placeholder="Email"><input type="password" placeholder="Contraseña"><button class="btn-primary-full">Entrar</button></div>
+      <div id="registerTab" class="modal-form"><h3>Únete a ReKoFum</h3><input type="text" placeholder="Nombre de usuario"><input type="email" placeholder="Email"><input type="password" placeholder="Contraseña"><button class="btn-primary-full">Crear cuenta</button></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script><script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderBrandsPage(marcasDB);
+      const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+      document.getElementById('alphabetFilter').innerHTML = alpha.map(l => `<button onclick="filterBrands('${l}')">${l}</button>`).join('') + `<button onclick="renderBrandsPage(marcasDB)">Todas</button>`;
+    });
+    function filterBrands(q) {
+      const filtered = marcasDB.filter(m => m.nombre.toLowerCase().includes(q.toLowerCase()) || m.nombre.toUpperCase().startsWith(q.toUpperCase()));
+      renderBrandsPage(filtered);
+    }
+    function renderBrandsPage(data) {
+      document.getElementById('brandsFullGrid').innerHTML = data.map(m => `
+        <a href="marca.html?id=${m.id}" class="brand-card-full">
+          <div class="brand-initial">${m.nombre[0]}</div>
+          <div class="brand-card-info">
+            <div class="brand-card-name">${m.nombre}</div>
+            <div class="brand-card-country">${m.pais}</div>
+            <div class="brand-card-count">${m.perfumes} perfumes</div>
+          </div>
+          <div class="brand-card-arrow">→</div>
+        </a>
+      `).join('');
+    }
+  </script>
+</body>
+</html>
+
