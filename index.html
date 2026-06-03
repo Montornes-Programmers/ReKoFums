@@ -1,190 +1,1179 @@
+
+Cap element seleccionat
+
+Salta al contingut
+Utilitza Correu de Institut Vinyes Velles amb lectors de pantalla
+1 de 836
+index.html
+Safata d'entrada
+Soufiane Kadi Sammar
+	
+Fitxers adjunts14:22 (fa 0 minuts)
+	
+	
+per a mi
+Sembla que aquest missatge està en anglès
+
+ Un fitxer adjunt
+  •  Escanejat per Gmail
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ReKoFum — Descubre tu fragancia</title>
+  <title>ReKoFum — Descubre tu fragancia perfecta</title>
   <meta name="description" content="ReKoFum: la plataforma de referencia para amantes de la perfumería. Base de datos, reseñas, comunidad y recomendaciones personalizadas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+/* =============================================
+   ReKoFum — Sistema de diseño completo v2
+   ============================================= */
+ 
+:root {
+  --gold: #B08B5E;
+  --gold-light: #C9A86C;
+  --gold-pale: #FAF4EC;
+  --gold-border: #E8D5B0;
+  --gold-deep: #8B6A3E;
+  --black: #0D0D0B;
+  --dark: #1A1A18;
+  --gray-900: #2C2C2A;
+  --gray-700: #5F5E5A;
+  --gray-500: #888780;
+  --gray-300: #D3D1C7;
+  --gray-200: #E5E3DA;
+  --gray-100: #F1EFE8;
+  --bg: #FAFAF7;
+  --white: #FFFFFF;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --radius-lg: 16px;
+  --shadow: 0 2px 20px rgba(0,0,0,0.07);
+  --shadow-md: 0 6px 40px rgba(0,0,0,0.11);
+  --shadow-lg: 0 16px 64px rgba(0,0,0,0.15);
+  --transition: 0.22s ease;
+  --header-h: 64px;
+}
+ 
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--black); font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; font-family: var(--sans); border: none; background: none; }
+input, select, textarea { font-family: var(--sans); font-size: 14px; outline: none; }
+ 
+/* ============================================
+   VISTAS — Single Page
+   ============================================ */
+.view { display: none; animation: viewIn 0.3s ease; }
+.view.active { display: block; }
+@keyframes viewIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+ 
+/* ============================================
+   HEADER
+   ============================================ */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: rgba(250,250,247,0.93); backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid transparent;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.header.scrolled { border-bottom-color: var(--gray-300); box-shadow: 0 2px 24px rgba(0,0,0,0.07); }
+.header-inner {
+  max-width: 1320px; margin: 0 auto;
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 28px; height: var(--header-h);
+}
+.logo {
+  font-family: var(--serif); font-size: 23px; font-weight: 600;
+  letter-spacing: 0.04em; white-space: nowrap; cursor: pointer;
+  transition: opacity var(--transition);
+}
+.logo:hover { opacity: 0.8; }
+.logo span { color: var(--gold); }
+ 
+.search-bar {
+  flex: 1; max-width: 420px; position: relative;
+  display: flex; align-items: center; gap: 8px;
+  background: var(--white); border: 0.5px solid var(--gray-300);
+  border-radius: 26px; padding: 8px 18px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.search-bar:focus-within { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,139,94,0.13); }
+.search-bar svg { color: var(--gray-500); flex-shrink: 0; }
+.search-bar input { flex: 1; background: none; border: none; font-size: 13px; color: var(--black); }
+.search-bar input::placeholder { color: var(--gray-500); }
+ 
+.search-dropdown {
+  display: none; position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+  background: var(--white); border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg); overflow: hidden; z-index: 200;
+}
+.search-dropdown.open { display: block; }
+.sd-group { font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-500); padding: 10px 16px 4px; }
+.sd-item { display: flex; align-items: center; gap: 10px; padding: 10px 16px; transition: background var(--transition); font-size: 13px; cursor: pointer; }
+.sd-item:hover { background: var(--gray-100); }
+.sd-item strong { display: block; font-weight: 500; }
+.sd-item span { color: var(--gray-500); font-size: 11px; }
+.sd-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.sd-dot.perf { background: var(--gold); }
+.sd-dot.brand { background: var(--gray-500); }
+.sd-rating { margin-left: auto; font-size: 11px; color: var(--gold); font-weight: 500; }
+.sd-footer { display: block; padding: 10px 16px; font-size: 12px; color: var(--gold); border-top: 0.5px solid var(--gray-100); cursor: pointer; }
+.sd-footer:hover { background: var(--gold-pale); }
+ 
+.main-nav { display: flex; gap: 2px; }
+.nav-link { font-size: 13px; padding: 6px 13px; border-radius: 6px; color: var(--gray-700); font-weight: 400; transition: color var(--transition), background var(--transition); cursor: pointer; }
+.nav-link:hover { color: var(--black); background: var(--gray-100); }
+.nav-link.active { color: var(--black); background: var(--gray-100); font-weight: 500; }
+ 
+.header-actions { display: flex; gap: 8px; white-space: nowrap; }
+.btn-ghost { padding: 7px 16px; border: 0.5px solid var(--gray-300); border-radius: 20px; font-size: 13px; color: var(--black); transition: all var(--transition); }
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+.btn-primary { padding: 8px 20px; background: var(--black); color: var(--white); border-radius: 20px; font-size: 13px; font-weight: 500; transition: all var(--transition); }
+.btn-primary:hover { background: var(--dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.2); }
+ 
+.menu-toggle { display: none; flex-direction: column; gap: 5px; padding: 8px; }
+.menu-toggle span { display: block; width: 20px; height: 1.5px; background: var(--black); transition: all var(--transition); border-radius: 1px; }
+.menu-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+.menu-toggle.open span:nth-child(2) { opacity: 0; }
+.menu-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+.mobile-menu { display: none; flex-direction: column; padding: 8px 28px 16px; border-top: 0.5px solid var(--gray-300); background: var(--white); }
+.mobile-menu a { padding: 11px 0; font-size: 15px; border-bottom: 0.5px solid var(--gray-100); color: var(--gray-700); cursor: pointer; display: block; }
+.mobile-menu.open { display: flex; }
+ 
+/* ============================================
+   HERO
+   ============================================ */
+.hero {
+  min-height: 100vh; padding-top: var(--header-h);
+  display: grid; grid-template-columns: 1fr 1fr;
+  max-width: 1320px; margin: 0 auto;
+  padding-left: 28px; padding-right: 28px; gap: 40px;
+  align-items: center; position: relative;
+}
+.hero::before {
+  content: ''; position: fixed; top: 0; right: 0; width: 55%; height: 100vh;
+  background: radial-gradient(ellipse at 80% 40%, rgba(200,168,108,0.07) 0%, transparent 65%);
+  pointer-events: none; z-index: -1;
+}
+.hero-content { padding: 60px 0; }
+.hero-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.16em; color: var(--gold); font-weight: 500; margin-bottom: 18px; }
+.hero-title { font-family: var(--serif); font-size: clamp(46px, 5.5vw, 76px); font-weight: 600; line-height: 1.03; margin-bottom: 22px; }
+.hero-title em { font-style: italic; color: var(--gold); }
+.hero-subtitle { font-size: 16px; color: var(--gray-700); max-width: 490px; margin-bottom: 36px; font-weight: 300; line-height: 1.75; }
+ 
+.hero-search {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--white); border: 0.5px solid var(--gray-300);
+  border-radius: 34px; padding: 8px 8px 8px 22px;
+  max-width: 510px; margin-bottom: 26px;
+  box-shadow: var(--shadow);
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.hero-search:focus-within { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(176,139,94,0.12); }
+.hero-search svg { color: var(--gray-500); flex-shrink: 0; }
+.hero-search input { flex: 1; background: none; border: none; font-size: 15px; color: var(--black); }
+.hero-search input::placeholder { color: var(--gray-500); }
+.hero-search button {
+  background: var(--black); color: var(--white); border: none;
+  padding: 10px 24px; border-radius: 26px; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all var(--transition); white-space: nowrap;
+}
+.hero-search button:hover { background: var(--gold); }
+ 
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.hero-tags span {
+  font-size: 12px; padding: 6px 15px; border-radius: 18px;
+  border: 0.5px solid var(--gray-300); color: var(--gray-700);
+  cursor: pointer; transition: all var(--transition);
+}
+.hero-tags span:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
+ 
+.hero-visual { display: flex; align-items: center; justify-content: center; height: 100%; }
+.floating-bottles { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.bottle {
+  cursor: pointer; border-radius: 14px; overflow: hidden;
+  border: 0.5px solid var(--gray-300);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow var(--transition);
+  background: var(--white);
+}
+.bottle:hover { transform: translateY(-8px) rotate(-1deg); box-shadow: var(--shadow-md); }
+.bottle:nth-child(2):hover { transform: translateY(-8px) rotate(1deg); }
+.bottle-img { height: 130px; border-radius: 12px 12px 0 0; }
+.img1 { background: linear-gradient(160deg,#F9F4EC,#E8D5A3); }
+.img2 { background: linear-gradient(160deg,#E8E0D5,#C5B49A); }
+.img3 { background: linear-gradient(160deg,#1A2744,#0D1B3E); }
+.img4 { background: linear-gradient(160deg,#2C1A2E,#1A0D1C); }
+.bottle span { display: block; font-family: var(--serif); font-size: 13px; padding: 9px 13px; color: var(--gray-700); }
+ 
+/* ============================================
+   STATS BAR
+   ============================================ */
+.stats-bar {
+  background: var(--black); color: var(--white);
+  display: flex; justify-content: center; gap: 0;
+}
+.stat {
+  flex: 1; max-width: 250px; display: flex; flex-direction: column; align-items: center;
+  padding: 30px 16px; border-right: 0.5px solid rgba(255,255,255,0.08);
+  transition: background var(--transition);
+}
+.stat:hover { background: rgba(255,255,255,0.03); }
+.stat:last-child { border-right: none; }
+.stat strong { font-family: var(--serif); font-size: 34px; font-weight: 600; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+.stat span { font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.45); }
+ 
+/* ============================================
+   SECTIONS
+   ============================================ */
+.section { max-width: 1320px; margin: 0 auto; padding: 72px 28px; }
+.section-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 34px; }
+.section-title { font-family: var(--serif); font-size: 30px; font-weight: 600; }
+.see-all { font-size: 13px; color: var(--gold); transition: opacity var(--transition); cursor: pointer; }
+.see-all:hover { opacity: 0.7; }
+ 
+/* ============================================
+   PERFUME CARDS
+   ============================================ */
+.perfume-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px, 1fr)); gap: 22px; }
+.perfume-catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr)); gap: 20px; }
+ 
+.perfume-card {
+  display: flex; flex-direction: column; border-radius: var(--radius-lg);
+  overflow: hidden; border: 0.5px solid var(--gray-300);
+  background: var(--white);
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow var(--transition), border-color var(--transition);
+  cursor: pointer;
+}
+.perfume-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--gold-border); }
+ 
+.pc-bottle {
+  height: 170px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px;
+}
+.pc-shine {
+  position: absolute; top: 0; left: 15%; width: 30%; height: 60%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 100%);
+  border-radius: 0 0 50% 50%; pointer-events: none;
+}
+.pc-label { position: relative; text-align: center; }
+.pc-label span { font-family: var(--serif); font-size: 12px; font-style: italic; color: rgba(0,0,0,0.55); }
+ 
+.pc-info { padding: 15px; }
+.pc-brand { font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--gold); font-weight: 500; margin-bottom: 4px; }
+.pc-name { font-family: var(--serif); font-size: 17px; font-weight: 600; line-height: 1.2; margin-bottom: 2px; }
+.pc-year { font-size: 11px; color: var(--gray-500); margin-bottom: 9px; }
+.pc-rating { display: flex; align-items: center; gap: 5px; font-size: 12px; margin-bottom: 9px; }
+.pc-rating span { color: var(--gray-500); font-size: 11px; }
+.pc-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.pc-tag { font-size: 10px; padding: 2px 9px; border-radius: 10px; background: var(--gray-100); color: var(--gray-700); }
+.pc-tag.femenino { background: #FEF0F5; color: #C4547A; }
+.pc-tag.masculino { background: #EEF3FD; color: #3A5FA0; }
+.pc-tag.unisex { background: var(--gold-pale); color: var(--gold); }
+ 
+.stars-wrap { display: inline-flex; gap: 1px; }
+.star { color: var(--gold-light); font-size: 12px; }
+.star.half { opacity: 0.5; }
+.star.empty { color: var(--gray-300); }
+ 
+/* ============================================
+   RECOMMENDER BANNER
+   ============================================ */
+.recommender-banner {
+  background: var(--black); color: var(--white);
+  padding: 88px 28px; display: flex; justify-content: center;
+  align-items: center; gap: 88px; position: relative; overflow: hidden;
+}
+.recommender-banner::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(176,139,94,0.15) 0%, transparent 60%);
+  pointer-events: none;
+}
+.recommender-content { max-width: 490px; position: relative; z-index: 1; }
+.rec-eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 0.13em; color: var(--gold-light); font-weight: 500; margin-bottom: 14px; }
+.recommender-content h2 { font-family: var(--serif); font-size: 38px; font-weight: 600; margin-bottom: 18px; line-height: 1.12; }
+.recommender-content p { color: rgba(255,255,255,0.6); font-size: 15px; margin-bottom: 30px; line-height: 1.75; font-weight: 300; }
+.btn-primary-lg {
+  background: var(--gold); color: var(--white); border: none;
+  padding: 15px 34px; border-radius: 30px; font-size: 15px; font-weight: 500;
+  cursor: pointer; transition: all var(--transition);
+}
+.btn-primary-lg:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(176,139,94,0.4); }
+.btn-ghost-lg {
+  background: none; border: 0.5px solid var(--gray-300); color: var(--gray-700);
+  padding: 12px 28px; border-radius: 30px; font-size: 14px; cursor: pointer;
+  transition: all var(--transition); margin-top: 24px;
+}
+.btn-ghost-lg:hover { border-color: var(--gold); color: var(--gold); }
+ 
+.rec-notes { position: relative; width: 290px; height: 210px; z-index: 1; }
+.note-bubble {
+  position: absolute; background: rgba(255,255,255,0.07);
+  border: 0.5px solid rgba(255,255,255,0.16); border-radius: 26px;
+  padding: 9px 18px; font-size: 13px; color: rgba(255,255,255,0.72);
+  white-space: nowrap; transition: background var(--transition);
+}
+.note-bubble:hover { background: rgba(255,255,255,0.13); }
+.n1 { top: 10px; left: 0; }
+.n2 { top: 0; right: 0; }
+.n3 { top: 70px; left: 20px; }
+.n4 { top: 80px; right: 10px; }
+.n5 { bottom: 20px; left: 0; }
+.n6 { bottom: 10px; right: 20px; }
+ 
+/* ============================================
+   BRANDS
+   ============================================ */
+.brands-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 16px; }
+.brand-mini-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 26px 16px; border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg);
+  background: var(--white);
+  transition: border-color var(--transition), background var(--transition), transform var(--transition), box-shadow var(--transition);
+  cursor: pointer;
+}
+.brand-mini-card:hover { border-color: var(--gold); background: var(--gold-pale); transform: translateY(-4px); box-shadow: var(--shadow); }
+.brand-initial-lg {
+  width: 54px; height: 54px; border-radius: 50%;
+  background: var(--black); color: var(--white);
+  font-family: var(--serif); font-size: 24px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; margin-bottom: 13px;
+  transition: background var(--transition);
+}
+.brand-mini-card:hover .brand-initial-lg { background: var(--gold); }
+.brand-mini-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.brand-mini-count { font-size: 11px; color: var(--gray-500); }
+ 
+/* ============================================
+   ARTICLES
+   ============================================ */
+.articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; }
+.article-card {
+  border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg); overflow: hidden;
+  background: var(--white); transition: all 0.3s ease; display: flex; flex-direction: column;
+  cursor: pointer;
+}
+.article-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--gold-border); }
+.article-img { height: 185px; position: relative; overflow: hidden; }
+.article-img::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.35) 0%, transparent 60%); }
+.art-otoño { background: linear-gradient(135deg, #D4805A, #8B3E1A); }
+.art-guia { background: linear-gradient(135deg, #3A5FA0, #1A2C5C); }
+.art-novedades { background: linear-gradient(135deg, #2A4A2A, #0D2010); }
+.art-historia { background: linear-gradient(135deg, #FAF4EC, #E8C87A); }
+.art-tips { background: linear-gradient(135deg, #C4A0C8, #6B3578); }
+.art-unisex { background: linear-gradient(135deg, #8BBFD8, #2A6E92); }
+.article-info { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+.article-cat { font-size: 10px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--gold); font-weight: 500; margin-bottom: 10px; }
+.article-title { font-family: var(--serif); font-size: 21px; font-weight: 600; line-height: 1.3; margin-bottom: 10px; }
+.article-resumen { font-size: 13px; color: var(--gray-700); line-height: 1.65; flex: 1; margin-bottom: 18px; }
+.article-fecha { font-size: 11px; color: var(--gray-500); margin-top: auto; }
+ 
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer { background: var(--black); color: var(--white); padding: 72px 28px 0; }
+.footer-inner { max-width: 1320px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 72px; padding-bottom: 72px; }
+.footer-brand .logo { color: var(--white); margin-bottom: 18px; display: block; }
+.footer-brand p { font-size: 13px; color: rgba(255,255,255,0.42); line-height: 1.75; max-width: 290px; }
+.footer-social { display: flex; gap: 10px; margin-top: 20px; }
+.social-btn { width: 34px; height: 34px; border: 0.5px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.4); font-size: 13px; cursor: pointer; transition: all var(--transition); }
+.social-btn:hover { border-color: var(--gold); color: var(--gold); }
+.footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; }
+.footer-col h4 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.11em; color: rgba(255,255,255,0.38); margin-bottom: 18px; font-weight: 500; }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,0.58); margin-bottom: 11px; transition: color var(--transition); cursor: pointer; }
+.footer-col a:hover { color: var(--gold-light); }
+.footer-bottom { border-top: 0.5px solid rgba(255,255,255,0.09); padding: 22px 0; display: flex; align-items: center; justify-content: space-between; }
+.footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.28); max-width: 1320px; margin: 0 auto; }
+ 
+/* ============================================
+   MODALES
+   ============================================ */
+.modal-overlay {
+  display: none; position: fixed; inset: 0; z-index: 3000;
+  background: rgba(0,0,0,0.55); backdrop-filter: blur(6px);
+  align-items: center; justify-content: center; padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--white); border-radius: 20px; padding: 36px;
+  width: 100%; max-width: 420px; position: relative;
+  animation: modalIn 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modalIn { from { transform: translateY(24px) scale(0.95); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+.modal-close { position: absolute; top: 18px; right: 18px; font-size: 16px; color: var(--gray-500); padding: 6px 10px; border-radius: 6px; transition: all var(--transition); }
+.modal-close:hover { color: var(--black); background: var(--gray-100); }
+.modal-tabs { display: flex; gap: 0; border-bottom: 0.5px solid var(--gray-300); margin-bottom: 26px; }
+.modal-tab { font-size: 14px; padding: 8px 22px 13px; color: var(--gray-500); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all var(--transition); }
+.modal-tab.active { color: var(--black); border-bottom-color: var(--black); font-weight: 500; }
+.modal-form { display: none; flex-direction: column; gap: 13px; }
+.modal-form.active { display: flex; }
+.modal-form h3 { font-family: var(--serif); font-size: 24px; font-weight: 600; margin-bottom: 4px; }
+.modal-form input {
+  padding: 13px 16px; border: 0.5px solid var(--gray-300); border-radius: 10px;
+  font-size: 14px; transition: border-color var(--transition), box-shadow var(--transition);
+}
+.modal-form input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,139,94,0.12); }
+.btn-primary-full {
+  padding: 14px; background: var(--black); color: var(--white);
+  border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer;
+  transition: all var(--transition); margin-top: 4px;
+}
+.btn-primary-full:hover { background: var(--dark); transform: translateY(-1px); }
+.modal-divider { display: flex; align-items: center; gap: 13px; }
+.modal-divider::before, .modal-divider::after { content: ''; flex: 1; height: 0.5px; background: var(--gray-300); }
+.modal-divider span { font-size: 12px; color: var(--gray-500); }
+.btn-oauth {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  padding: 13px; border: 0.5px solid var(--gray-300); border-radius: 10px;
+  font-size: 13px; cursor: pointer; transition: all var(--transition);
+}
+.btn-oauth:hover { background: var(--gray-100); border-color: var(--gray-500); }
+ 
+/* ============================================
+   PERFUMES PAGE
+   ============================================ */
+.catalog-layout {
+  display: grid; grid-template-columns: 265px 1fr;
+  max-width: 1320px; margin: 0 auto;
+  padding: calc(var(--header-h) + 36px) 28px 72px; gap: 44px; align-items: start;
+}
+.filters-sidebar {
+  position: sticky; top: calc(var(--header-h) + 18px);
+  background: var(--white); border: 0.5px solid var(--gray-300);
+  border-radius: var(--radius-lg); padding: 26px;
+}
+.filters-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+.filters-header h3 { font-size: 16px; font-weight: 500; }
+.reset-btn { font-size: 12px; color: var(--gold); cursor: pointer; padding: 3px 8px; border-radius: 4px; transition: background var(--transition); }
+.reset-btn:hover { background: var(--gold-pale); }
+.filter-group { margin-bottom: 24px; border-bottom: 0.5px solid var(--gray-100); padding-bottom: 22px; }
+.filter-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.filter-group h4 { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-500); margin-bottom: 13px; }
+.filter-check { display: flex; align-items: center; gap: 9px; margin-bottom: 9px; cursor: pointer; font-size: 13px; color: var(--gray-700); transition: color var(--transition); }
+.filter-check:hover span { color: var(--black); }
+.filter-check input[type="checkbox"] { accent-color: var(--gold); width: 14px; height: 14px; cursor: pointer; }
+.range-group { display: flex; flex-direction: column; gap: 8px; }
+.range-group input[type="range"] { accent-color: var(--gold); width: 100%; }
+.range-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray-500); }
+ 
+.catalog-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; flex-wrap: wrap; gap: 14px; }
+.page-title { font-family: var(--serif); font-size: 34px; font-weight: 600; }
+.catalog-controls { display: flex; align-items: center; gap: 12px; }
+.result-count { font-size: 13px; color: var(--gray-500); }
+.sort-select { font-size: 13px; padding: 9px 13px; border: 0.5px solid var(--gray-300); border-radius: 9px; background: var(--white); color: var(--black); cursor: pointer; transition: border-color var(--transition); }
+.sort-select:focus { border-color: var(--gold); }
+.view-toggle { display: flex; border: 0.5px solid var(--gray-300); border-radius: 9px; overflow: hidden; }
+.view-btn { padding: 9px 11px; color: var(--gray-500); transition: all var(--transition); }
+.view-btn.active { background: var(--black); color: var(--white); }
+.active-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.af-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 11px; background: var(--gold-pale); border: 0.5px solid var(--gold-border); border-radius: 18px; color: var(--gold); }
+.af-tag button { font-size: 10px; color: var(--gold); cursor: pointer; }
+.perfume-catalog-list { display: flex; flex-direction: column; gap: 12px; }
+.list-card {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--white); border: 0.5px solid var(--gray-300); border-radius: var(--radius);
+  padding: 16px; transition: all var(--transition); cursor: pointer;
+}
+.list-card:hover { border-color: var(--gold-border); box-shadow: var(--shadow); }
+.list-bottle { width: 64px; height: 64px; border-radius: 8px; flex-shrink: 0; }
+.list-info { flex: 1; }
+.list-brand { font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); font-weight: 500; margin-bottom: 2px; }
+.list-name { font-family: var(--serif); font-size: 18px; font-weight: 600; line-height: 1.2; margin-bottom: 4px; }
+.list-meta { font-size: 12px; color: var(--gray-500); display: flex; gap: 10px; align-items: center; }
+.list-rating { margin-left: auto; text-align: right; }
+.list-rating .stars-wrap { font-size: 13px; }
+.list-rating span { display: block; font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+ 
+/* ============================================
+   MARCAS PAGE
+   ============================================ */
+.page-wrap { max-width: 1320px; margin: 0 auto; padding: calc(var(--header-h) + 52px) 28px 72px; }
+.page-hero-sm { margin-bottom: 36px; }
+.page-hero-sm h1 { font-family: var(--serif); font-size: 42px; font-weight: 600; margin-bottom: 10px; }
+.page-hero-sm p { font-size: 16px; color: var(--gray-700); font-weight: 300; }
+ 
+.brands-filter-bar { margin-bottom: 28px; }
+.brand-search-input {
+  width: 100%; max-width: 420px; padding: 11px 18px;
+  border: 0.5px solid var(--gray-300); border-radius: 10px; font-size: 14px;
+  margin-bottom: 18px; display: block; transition: border-color var(--transition), box-shadow var(--transition);
+}
+.brand-search-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(176,139,94,0.12); }
+.alphabet-filter { display: flex; flex-wrap: wrap; gap: 5px; }
+.alphabet-filter button {
+  width: 32px; height: 32px; border: 0.5px solid var(--gray-300); border-radius: 7px;
+  font-size: 12px; font-weight: 500; cursor: pointer; transition: all var(--transition);
+  font-family: var(--sans);
+}
+.alphabet-filter button:hover,
+.alphabet-filter button.alpha-active { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
+ 
+.brands-full-grid { display: flex; flex-direction: column; gap: 3px; }
+.brand-card-full {
+  display: flex; align-items: center; gap: 18px;
+  padding: 17px 22px; background: var(--white);
+  border: 0.5px solid var(--gray-300); border-radius: var(--radius);
+  transition: all var(--transition); cursor: pointer;
+}
+.brand-card-full:hover { border-color: var(--gold); background: var(--gold-pale); transform: translateX(4px); }
+.brand-initial { width: 42px; height: 42px; border-radius: 50%; background: var(--black); color: var(--white); font-family: var(--serif); font-size: 19px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background var(--transition); }
+.brand-card-full:hover .brand-initial { background: var(--gold); }
+.brand-card-info { flex: 1; }
+.brand-card-name { font-size: 15px; font-weight: 500; margin-bottom: 2px; }
+.brand-card-country { font-size: 12px; color: var(--gray-500); }
+.brand-card-count { font-size: 12px; color: var(--gold); margin-top: 2px; }
+.brand-card-desc { font-size: 12px; color: var(--gray-700); margin-top: 3px; max-width: 480px; }
+.brand-card-arrow { color: var(--gray-300); font-size: 20px; transition: all var(--transition); }
+.brand-card-full:hover .brand-card-arrow { color: var(--gold); transform: translateX(4px); }
+ 
+/* ============================================
+   PERFUME DETAIL PAGE
+   ============================================ */
+.perfume-detail-wrap { max-width: 1320px; margin: 0 auto; padding: calc(var(--header-h) + 24px) 28px 72px; }
+.breadcrumb { font-size: 12px; color: var(--gray-500); margin-bottom: 36px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.breadcrumb a, .breadcrumb span { transition: color var(--transition); cursor: pointer; }
+.breadcrumb a:hover { color: var(--gold); }
+.breadcrumb .sep { color: var(--gray-300); }
+.breadcrumb .current { color: var(--black); font-weight: 500; }
+ 
+.pd-hero { display: grid; grid-template-columns: 300px 1fr; gap: 56px; margin-bottom: 56px; }
+.pd-bottle-col { display: flex; flex-direction: column; gap: 16px; }
+.pd-bottle {
+  height: 360px; border-radius: 14px; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end; justify-content: center; padding-bottom: 22px;
+  border: 0.5px solid rgba(0,0,0,0.07); transition: box-shadow var(--transition);
+}
+.pd-bottle:hover { box-shadow: var(--shadow-md); }
+.pd-bottle-shine {
+  position: absolute; top: 0; left: 18%; width: 28%; height: 55%;
+  background: linear-gradient(180deg, rgba(255,255,255,0.48) 0%, transparent 100%);
+  border-radius: 0 0 50% 50%; pointer-events: none;
+}
+.pd-bottle-label-wrap { position: relative; text-align: center; }
+.pd-bottle-name { display: block; font-family: var(--serif); font-size: 14px; font-style: italic; color: rgba(0,0,0,0.5); }
+.pd-bottle-brand { display: block; font-size: 11px; color: rgba(0,0,0,0.32); margin-top: 2px; }
+.pd-actions-col { display: flex; gap: 9px; }
+.pd-action-btn {
+  flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 12px; border: 0.5px solid var(--gray-300); border-radius: 9px;
+  font-size: 12px; color: var(--gray-700); transition: all var(--transition);
+}
+.pd-action-btn:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
+.pd-action-btn.active { background: var(--gold-pale); border-color: var(--gold); color: var(--gold); }
+ 
+.pd-brand-link { margin-bottom: 7px; }
+.pd-brand-link a { font-size: 12px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--gold); font-weight: 500; cursor: pointer; }
+.pd-name { font-family: var(--serif); font-size: clamp(34px, 4.5vw, 56px); font-weight: 600; line-height: 1.03; margin-bottom: 18px; }
+.pd-meta-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.pd-pill { font-size: 11px; padding: 4px 13px; border-radius: 18px; border: 0.5px solid var(--gray-300); color: var(--gray-700); background: var(--white); }
+.pd-pill.gender { background: var(--gold-pale); border-color: var(--gold-border); color: var(--gold); }
+.pd-pill.family { background: var(--gray-100); }
+.pd-rating-row { display: flex; align-items: center; gap: 10px; margin-bottom: 32px; }
+.pd-rating-num { font-family: var(--serif); font-size: 26px; font-weight: 600; }
+.pd-rating-count { font-size: 13px; color: var(--gray-500); }
+ 
+.pd-section { margin-bottom: 30px; }
+.pd-section-title { font-size: 11px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--gray-500); font-weight: 500; margin-bottom: 15px; }
+.pyramid-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 13px; }
+.pyramid-tier { background: var(--gray-100); border-radius: 9px; padding: 15px; }
+.pyramid-tier-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--gold); font-weight: 500; margin-bottom: 11px; }
+.note-chip { display: inline-block; font-size: 11px; padding: 4px 11px; background: var(--white); border: 0.5px solid var(--gray-300); border-radius: 13px; margin: 2px 2px 2px 0; color: var(--gray-700); cursor: pointer; transition: all var(--transition); }
+.note-chip:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-pale); }
+.pd-desc { font-family: var(--serif); font-size: 17px; line-height: 1.82; color: var(--gray-700); }
+ 
+.pd-community-votes { background: var(--gray-100); border-radius: var(--radius-lg); padding: 40px; margin-bottom: 56px; }
+.pd-h2 { font-family: var(--serif); font-size: 28px; font-weight: 600; margin-bottom: 26px; }
+.votes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 26px; }
+.vote-card { background: var(--white); border-radius: 10px; padding: 20px; border: 0.5px solid var(--gray-300); }
+.vote-card-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-700); margin-bottom: 15px; }
+.vote-bar-wrap { margin-bottom: 7px; }
+.vote-bar-track { height: 7px; background: var(--gray-200); border-radius: 4px; overflow: hidden; }
+.vote-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 4px; transition: width 0.8s ease; }
+.vote-bar-ends { display: flex; justify-content: space-between; font-size: 10px; color: var(--gray-500); margin-bottom: 7px; }
+.vote-percent { font-size: 13px; color: var(--gold); font-weight: 500; }
+.season-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+.season-chip { font-size: 11px; padding: 5px 13px; border-radius: 18px; border: 0.5px solid var(--gray-300); color: var(--gray-500); }
+.season-chip.active { background: var(--gold-pale); border-color: var(--gold-border); color: var(--gold); font-weight: 500; }
+.daytime-bar { display: flex; height: 26px; border-radius: 5px; overflow: hidden; margin-bottom: 9px; }
+.daytime-fill.day { background: linear-gradient(90deg,#FAD870,#F5C440); }
+.daytime-fill.night { background: linear-gradient(90deg,#2A3A5C,#1A2540); }
+.daytime-labels { display: flex; justify-content: space-between; font-size: 11px; color: var(--gray-500); }
+.vote-cta { text-align: center; }
+.btn-vote { padding: 13px 36px; background: var(--black); color: var(--white); border-radius: 26px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all var(--transition); }
+.btn-vote:hover { background: var(--gold); transform: translateY(-2px); }
+ 
+.pd-reviews-section { margin-bottom: 56px; }
+.tabs-bar { display: flex; border-bottom: 0.5px solid var(--gray-300); margin-bottom: 0; }
+.tab { font-size: 14px; padding: 13px 22px; color: var(--gray-500); border-bottom: 2px solid transparent; margin-bottom: -1px; font-weight: 400; transition: all var(--transition); cursor: pointer; }
+.tab.active { color: var(--black); border-bottom-color: var(--black); font-weight: 500; }
+.tab-panel { display: none; padding-top: 26px; }
+.tab-panel.active { display: block; }
+.reviews-list { display: flex; flex-direction: column; gap: 0; margin-bottom: 44px; }
+.review-card { padding: 26px 0; border-bottom: 0.5px solid var(--gray-100); }
+.review-header { display: flex; align-items: flex-start; gap: 13px; margin-bottom: 13px; }
+.review-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--gold); flex-shrink: 0; border: 0.5px solid var(--gold-border); }
+.review-user { font-size: 14px; font-weight: 500; }
+.review-meta { font-size: 12px; color: var(--gray-500); }
+.review-likes { margin-left: auto; }
+.review-likes button { font-size: 13px; color: var(--gray-500); padding: 4px 11px; border: 0.5px solid var(--gray-300); border-radius: 18px; cursor: pointer; transition: all var(--transition); }
+.review-likes button:hover { color: var(--gold); border-color: var(--gold-border); }
+.review-text { font-family: var(--serif); font-size: 16px; line-height: 1.78; color: var(--gray-700); margin-bottom: 13px; }
+.review-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.review-tags span { font-size: 10px; padding: 3px 11px; background: var(--gray-100); border-radius: 13px; color: var(--gray-500); }
+.write-review { background: var(--gray-100); border-radius: var(--radius-lg); padding: 30px; }
+.write-review h3 { font-family: var(--serif); font-size: 22px; font-weight: 600; margin-bottom: 18px; }
+.star-input { display: flex; gap: 9px; margin-bottom: 18px; }
+.star-input span { font-size: 30px; cursor: pointer; color: var(--gray-300); transition: color var(--transition); }
+.star-input span:hover { color: var(--gold); }
+.write-review textarea { width: 100%; padding: 15px; border: 0.5px solid var(--gray-300); border-radius: 10px; resize: vertical; font-size: 14px; line-height: 1.65; margin-bottom: 18px; background: var(--white); transition: border-color var(--transition); }
+.write-review textarea:focus { border-color: var(--gold); }
+.empty-state { color: var(--gray-500); font-size: 14px; padding: 26px 0; }
+ 
+.pd-similar { margin-bottom: 56px; }
+.similar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 26px; }
+.similar-card { border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg); overflow: hidden; background: var(--white); transition: all var(--transition); cursor: pointer; }
+.similar-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); border-color: var(--gold-border); }
+.similar-bottle { height: 110px; }
+.similar-info { padding: 13px; }
+.similar-name { font-family: var(--serif); font-size: 16px; font-weight: 600; line-height: 1.2; margin-bottom: 3px; }
+.similar-brand { font-size: 11px; color: var(--gray-500); margin-bottom: 7px; }
+ 
+/* ============================================
+   RECOMENDADOR PAGE
+   ============================================ */
+.recommender-page { max-width: 790px; margin: 0 auto; padding: calc(var(--header-h) + 52px) 28px 72px; }
+.rec-hero { text-align: center; margin-bottom: 52px; }
+.rec-hero h1 { font-family: var(--serif); font-size: 44px; font-weight: 600; margin-bottom: 14px; }
+.rec-hero p { font-size: 16px; color: var(--gray-700); font-weight: 300; }
+.rec-step { display: none; background: var(--white); border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg); padding: 40px; }
+.rec-step.active { display: block; animation: viewIn 0.25s ease; }
+.step-counter { font-size: 11px; text-transform: uppercase; letter-spacing: 0.11em; color: var(--gold); font-weight: 500; margin-bottom: 13px; }
+.rec-step h2 { font-family: var(--serif); font-size: 30px; font-weight: 600; margin-bottom: 9px; }
+.step-subtitle { font-size: 14px; color: var(--gray-500); margin-bottom: 26px; }
+.rec-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 28px 0; }
+.rec-options.multi { grid-template-columns: repeat(3, 1fr); }
+.rec-option {
+  display: flex; flex-direction: column; align-items: center; gap: 11px;
+  padding: 26px 18px; border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg);
+  background: var(--bg); cursor: pointer; transition: all 0.2s;
+  text-align: center; font-size: 14px; color: var(--gray-700);
+}
+.rec-option:hover { border-color: var(--gold); background: var(--gold-pale); color: var(--black); transform: translateY(-2px); }
+.rec-option.selected { border-color: var(--gold); background: var(--gold-pale); color: var(--black); font-weight: 500; box-shadow: 0 0 0 2px rgba(176,139,94,0.18); }
+.rec-option-icon { font-size: 26px; color: var(--gold); line-height: 1; }
+.rec-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.rec-back { padding: 11px 22px; border: 0.5px solid var(--gray-300); border-radius: 9px; font-size: 14px; cursor: pointer; color: var(--gray-700); transition: all var(--transition); font-family: var(--sans); }
+.rec-back:hover { border-color: var(--black); color: var(--black); }
+.rec-next { padding: 12px 30px; background: var(--black); color: var(--white); border-radius: 9px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all var(--transition); font-family: var(--sans); }
+.rec-next:hover:not(:disabled) { background: var(--gold); }
+.rec-next:disabled { opacity: 0.35; cursor: not-allowed; }
+.rec-results { text-align: center; animation: viewIn 0.3s ease; }
+.rec-results h2 { font-family: var(--serif); font-size: 34px; font-weight: 600; margin-bottom: 10px; }
+.rec-subtitle { font-size: 15px; color: var(--gray-700); margin-bottom: 38px; }
+.progress-bar { height: 3px; background: var(--gray-200); border-radius: 2px; margin-bottom: 32px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--gold-light)); border-radius: 2px; transition: width 0.4s ease; }
+ 
+/* ============================================
+   COMUNIDAD PAGE
+   ============================================ */
+.community-layout { max-width: 1320px; margin: 0 auto; padding: calc(var(--header-h) + 44px) 28px 72px; display: grid; grid-template-columns: 1fr 320px; gap: 44px; }
+.post-card { background: var(--white); border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 13px; transition: all var(--transition); }
+.post-card:hover { border-color: var(--gold-border); box-shadow: var(--shadow); }
+.post-header { display: flex; align-items: center; gap: 11px; margin-bottom: 13px; }
+.post-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--gold-pale); border: 0.5px solid var(--gold-border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 500; color: var(--gold); flex-shrink: 0; }
+.post-user { font-size: 13px; font-weight: 500; }
+.post-time { font-size: 11px; color: var(--gray-500); }
+.post-cat { margin-left: auto; font-size: 10px; padding: 3px 11px; border-radius: 13px; background: var(--gold-pale); border: 0.5px solid var(--gold-border); color: var(--gold); white-space: nowrap; }
+.post-title { font-family: var(--serif); font-size: 19px; font-weight: 600; margin-bottom: 9px; line-height: 1.3; cursor: pointer; transition: color var(--transition); }
+.post-title:hover { color: var(--gold); }
+.post-preview { font-size: 13px; color: var(--gray-700); line-height: 1.65; margin-bottom: 15px; }
+.post-footer { display: flex; align-items: center; gap: 18px; font-size: 12px; color: var(--gray-500); }
+.post-stat { display: flex; align-items: center; gap: 5px; cursor: pointer; transition: color var(--transition); padding: 3px 8px; border-radius: 5px; }
+.post-stat:hover { color: var(--gold); background: var(--gold-pale); }
+.sidebar-card { background: var(--white); border: 0.5px solid var(--gray-300); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 18px; }
+.sidebar-card h3 { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--gray-500); margin-bottom: 18px; }
+.trending-topic { display: flex; align-items: center; gap: 11px; padding: 10px 0; border-bottom: 0.5px solid var(--gray-100); font-size: 13px; cursor: pointer; transition: color var(--transition); }
+.trending-topic:last-child { border-bottom: none; }
+.trending-topic:hover { color: var(--gold); }
+.trend-num { font-size: 17px; font-family: var(--serif); font-weight: 600; color: var(--gold); min-width: 22px; }
+.new-post-btn { width: 100%; padding: 14px; background: var(--black); color: var(--white); border-radius: 10px; font-size: 14px; font-weight: 500; cursor: pointer; margin-bottom: 22px; transition: all var(--transition); font-family: var(--sans); }
+.new-post-btn:hover { background: var(--gold); transform: translateY(-1px); }
+.forum-tabs { display: flex; gap: 0; border-bottom: 0.5px solid var(--gray-300); margin-bottom: 26px; }
+ 
+/* ============================================
+   ARTÍCULOS PAGE
+   ============================================ */
+.articles-page { max-width: 1320px; margin: 0 auto; padding: calc(var(--header-h) + 52px) 28px 72px; }
+.article-filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 36px; }
+.article-filter-btn { padding: 8px 18px; border: 0.5px solid var(--gray-300); border-radius: 22px; font-size: 12px; cursor: pointer; color: var(--gray-700); background: var(--white); transition: all var(--transition); font-family: var(--sans); }
+.article-filter-btn:hover, .article-filter-btn.active { background: var(--black); color: var(--white); border-color: var(--black); }
+ 
+/* ============================================
+   BACK BUTTON
+   ============================================ */
+.back-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--gray-700); cursor: pointer; padding: 8px 0; transition: color var(--transition); margin-bottom: 8px; }
+.back-btn:hover { color: var(--gold); }
+.back-btn svg { transition: transform var(--transition); }
+.back-btn:hover svg { transform: translateX(-3px); }
+ 
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .pd-hero { grid-template-columns: 250px 1fr; gap: 36px; }
+  .catalog-layout { grid-template-columns: 230px 1fr; }
+}
+@media (max-width: 900px) {
+  .main-nav, .header-actions { display: none; }
+  .menu-toggle { display: flex; }
+  .hero { grid-template-columns: 1fr; padding-top: calc(var(--header-h) + 36px); }
+  .hero-visual { display: none; }
+  .catalog-layout { grid-template-columns: 1fr; padding-top: calc(var(--header-h) + 18px); }
+  .filters-sidebar { position: static; }
+  .pd-hero { grid-template-columns: 1fr; }
+  .pd-bottle { height: 240px; }
+  .votes-grid { grid-template-columns: 1fr; }
+  .similar-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-inner { grid-template-columns: 1fr; gap: 36px; }
+  .footer-links { grid-template-columns: repeat(2, 1fr); }
+  .stats-bar { flex-wrap: wrap; }
+  .stat { min-width: 50%; }
+  .community-layout { grid-template-columns: 1fr; }
+  .community-sidebar { order: -1; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: 38px; }
+  .section { padding: 44px 18px; }
+  .perfume-grid, .perfume-catalog-grid { grid-template-columns: repeat(2, 1fr); gap: 13px; }
+  .rec-options, .rec-options.multi { grid-template-columns: 1fr 1fr; }
+  .pyramid-grid { grid-template-columns: 1fr; }
+  .recommender-banner { flex-direction: column; gap: 36px; padding: 52px 18px; }
+  .rec-notes { display: none; }
+  .brands-grid { grid-template-columns: repeat(2, 1fr); }
+  .similar-grid { grid-template-columns: repeat(2, 1fr); }
+  .articles-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+  </style>
 </head>
 <body>
-
-  <!-- HEADER -->
+ 
+  <!-- ============================================
+       HEADER
+       ============================================ -->
   <header class="header" id="header">
     <div class="header-inner">
-      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="logo" onclick="showView('home')">Reko<span>Fum</span></div>
       <div class="search-bar" id="searchBar">
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
         <input type="text" id="searchInput" placeholder="Perfumes, marcas, notas..." autocomplete="off">
         <div class="search-dropdown" id="searchDropdown"></div>
       </div>
       <nav class="main-nav">
-        <a href="index.html" class="nav-link active">Inicio</a>
-        <a href="perfumes.html" class="nav-link">Perfumes</a>
-        <a href="marcas.html" class="nav-link">Marcas</a>
-        <a href="comunidad.html" class="nav-link">Comunidad</a>
-        <a href="articulos.html" class="nav-link">Artículos</a>
+        <span class="nav-link active" id="nav-home" onclick="showView('home')">Inicio</span>
+        <span class="nav-link" id="nav-perfumes" onclick="showView('perfumes')">Perfumes</span>
+        <span class="nav-link" id="nav-marcas" onclick="showView('marcas')">Marcas</span>
+        <span class="nav-link" id="nav-comunidad" onclick="showView('comunidad')">Comunidad</span>
+        <span class="nav-link" id="nav-articulos" onclick="showView('articulos')">Artículos</span>
       </nav>
       <div class="header-actions">
         <button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button>
         <button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button>
       </div>
-      <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
-        <span></span><span></span><span></span>
-      </button>
+      <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
-      <a href="index.html">Inicio</a>
-      <a href="perfumes.html">Perfumes</a>
-      <a href="marcas.html">Marcas</a>
-      <a href="comunidad.html">Comunidad</a>
-      <a href="articulos.html">Artículos</a>
+      <a onclick="showView('home');toggleMenu()">Inicio</a>
+      <a onclick="showView('perfumes');toggleMenu()">Perfumes</a>
+      <a onclick="showView('marcas');toggleMenu()">Marcas</a>
+      <a onclick="showView('comunidad');toggleMenu()">Comunidad</a>
+      <a onclick="showView('articulos');toggleMenu()">Artículos</a>
+      <a onclick="showView('recomendador');toggleMenu()">Recomendador</a>
     </div>
   </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-content">
-      <p class="hero-eyebrow">La enciclopedia de la perfumería</p>
-      <h1 class="hero-title">Descubre tu<br><em>fragancia perfecta</em></h1>
-      <p class="hero-subtitle">Base de datos de +18.000 perfumes. Reseñas auténticas. Recomendaciones personalizadas.</p>
-      <div class="hero-search">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
-        <input type="text" placeholder="¿Qué fragancia buscas?" oninput="heroSearch(this.value)">
-        <button onclick="goTo('perfumes.html')">Explorar</button>
-      </div>
-      <div class="hero-tags">
-        <span onclick="goTo('perfumes.html?filtro=femenino')">Femenino</span>
-        <span onclick="goTo('perfumes.html?filtro=masculino')">Masculino</span>
-        <span onclick="goTo('perfumes.html?filtro=unisex')">Unisex</span>
-        <span onclick="goTo('perfumes.html?nota=oriental')">Orientales</span>
-        <span onclick="goTo('perfumes.html?nota=floral')">Florales</span>
-        <span onclick="goTo('perfumes.html?nota=amaderado')">Amaderados</span>
-      </div>
-    </div>
-    <div class="hero-visual">
-      <div class="floating-bottles">
-        <div class="bottle b1" onclick="goTo('perfume.html?id=1')">
-          <div class="bottle-img img1"></div>
-          <span>N°5</span>
+ 
+  <!-- ============================================
+       VIEW: HOME
+       ============================================ -->
+  <div id="view-home" class="view active">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-content">
+        <p class="hero-eyebrow">La enciclopedia de la perfumería</p>
+        <h1 class="hero-title">Descubre tu<br><em>fragancia perfecta</em></h1>
+        <p class="hero-subtitle">Base de datos de +18.000 perfumes. Reseñas auténticas. Recomendaciones personalizadas.</p>
+        <div class="hero-search">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="heroSearchInput" placeholder="¿Qué fragancia buscas?">
+          <button onclick="showView('perfumes')">Explorar</button>
         </div>
-        <div class="bottle b2" onclick="goTo('perfume.html?id=2')">
-          <div class="bottle-img img2"></div>
-          <span>Jazz Club</span>
-        </div>
-        <div class="bottle b3" onclick="goTo('perfume.html?id=3')">
-          <div class="bottle-img img3"></div>
-          <span>Sauvage</span>
-        </div>
-        <div class="bottle b4" onclick="goTo('perfume.html?id=4')">
-          <div class="bottle-img img4"></div>
-          <span>Black Orchid</span>
+        <div class="hero-tags">
+          <span onclick="showPerfumesFiltered('femenino')">Femenino</span>
+          <span onclick="showPerfumesFiltered('masculino')">Masculino</span>
+          <span onclick="showPerfumesFiltered('unisex')">Unisex</span>
+          <span onclick="showPerfumesFiltered(null,'oriental')">Orientales</span>
+          <span onclick="showPerfumesFiltered(null,'floral')">Florales</span>
+          <span onclick="showPerfumesFiltered(null,'amaderado')">Amaderados</span>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- STATS -->
-  <section class="stats-bar">
-    <div class="stat"><strong>18.420</strong><span>Perfumes</span></div>
-    <div class="stat"><strong>3.210</strong><span>Marcas</span></div>
-    <div class="stat"><strong>94.700</strong><span>Reseñas</span></div>
-    <div class="stat"><strong>41.200</strong><span>Usuarios</span></div>
-  </section>
-
-  <!-- TRENDING -->
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Tendencias esta semana</h2>
-      <a href="perfumes.html" class="see-all">Ver todos →</a>
-    </div>
-    <div class="perfume-grid" id="trendingGrid"></div>
-  </section>
-
-  <!-- RECOMENDADOR -->
-  <section class="recommender-banner">
-    <div class="recommender-content">
-      <p class="rec-eyebrow">Motor de recomendación</p>
-      <h2>¿No sabes qué perfume elegir?</h2>
-      <p>Cuéntanos qué notas te gustan y te encontramos tu fragancia ideal entre miles de opciones.</p>
-      <button class="btn-primary-lg" onclick="goTo('recomendador.html')">Empezar →</button>
-    </div>
-    <div class="rec-notes">
-      <div class="note-bubble n1">Vainilla</div>
-      <div class="note-bubble n2">Cedro</div>
-      <div class="note-bubble n3">Rosa</div>
-      <div class="note-bubble n4">Pachulí</div>
-      <div class="note-bubble n5">Jazmín</div>
-      <div class="note-bubble n6">Ámbar</div>
-    </div>
-  </section>
-
-  <!-- NOVEDADES -->
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Lanzamientos recientes</h2>
-      <a href="perfumes.html?orden=nuevo" class="see-all">Ver todos →</a>
-    </div>
-    <div class="perfume-grid" id="newGrid"></div>
-  </section>
-
-  <!-- TOP MARCAS -->
-  <section class="section brands-section">
-    <div class="section-header">
-      <h2 class="section-title">Marcas destacadas</h2>
-      <a href="marcas.html" class="see-all">Ver todas →</a>
-    </div>
-    <div class="brands-grid" id="brandsGrid"></div>
-  </section>
-
-  <!-- ARTÍCULOS EDITORIAL -->
-  <section class="section">
-    <div class="section-header">
-      <h2 class="section-title">Editorial</h2>
-      <a href="articulos.html" class="see-all">Todos los artículos →</a>
-    </div>
-    <div class="articles-grid" id="articlesGrid"></div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo footer-logo">Reko<span>Fum</span></div>
-        <p>La plataforma de referencia para amantes de la perfumería. Descubre, comparte y encuentra tu fragancia perfecta.</p>
-      </div>
-      <div class="footer-links">
-        <div class="footer-col">
-          <h4>Explorar</h4>
-          <a href="perfumes.html">Perfumes</a>
-          <a href="marcas.html">Marcas</a>
-          <a href="perfumes.html?nota=top">Top 100</a>
-          <a href="recomendador.html">Recomendador</a>
-        </div>
-        <div class="footer-col">
-          <h4>Comunidad</h4>
-          <a href="comunidad.html">Foro</a>
-          <a href="articulos.html">Artículos</a>
-          <a href="#">Novedades</a>
-          <a href="#">Guías</a>
-        </div>
-        <div class="footer-col">
-          <h4>ReKoFum</h4>
-          <a href="#">Sobre nosotros</a>
-          <a href="#">Contacto</a>
-          <a href="#">Privacidad</a>
-          <a href="#">Términos</a>
+      <div class="hero-visual">
+        <div class="floating-bottles">
+          <div class="bottle" onclick="showPerfumeDetail(1)">
+            <div class="bottle-img img1"></div>
+            <span>N°5</span>
+          </div>
+          <div class="bottle" onclick="showPerfumeDetail(2)">
+            <div class="bottle-img img2"></div>
+            <span>Jazz Club</span>
+          </div>
+          <div class="bottle" onclick="showPerfumeDetail(3)">
+            <div class="bottle-img img3"></div>
+            <span>Sauvage</span>
+          </div>
+          <div class="bottle" onclick="showPerfumeDetail(4)">
+            <div class="bottle-img img4"></div>
+            <span>Black Orchid</span>
+          </div>
         </div>
       </div>
+    </section>
+ 
+    <!-- STATS -->
+    <section class="stats-bar">
+      <div class="stat"><strong>18.420</strong><span>Perfumes</span></div>
+      <div class="stat"><strong>3.210</strong><span>Marcas</span></div>
+      <div class="stat"><strong>94.700</strong><span>Reseñas</span></div>
+      <div class="stat"><strong>41.200</strong><span>Usuarios</span></div>
+    </section>
+ 
+    <!-- TRENDING -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Tendencias esta semana</h2>
+        <span class="see-all" onclick="showView('perfumes')">Ver todos →</span>
+      </div>
+      <div class="perfume-grid" id="trendingGrid"></div>
+    </section>
+ 
+    <!-- RECOMENDADOR BANNER -->
+    <section class="recommender-banner">
+      <div class="recommender-content">
+        <p class="rec-eyebrow">Motor de recomendación IA</p>
+        <h2>¿No sabes qué perfume elegir?</h2>
+        <p>Cuéntanos qué notas te gustan y te encontramos tu fragancia ideal entre miles de opciones.</p>
+        <button class="btn-primary-lg" onclick="showView('recomendador')">Empezar →</button>
+      </div>
+      <div class="rec-notes">
+        <div class="note-bubble n1">Vainilla</div>
+        <div class="note-bubble n2">Cedro</div>
+        <div class="note-bubble n3">Rosa</div>
+        <div class="note-bubble n4">Pachulí</div>
+        <div class="note-bubble n5">Jazmín</div>
+        <div class="note-bubble n6">Ámbar</div>
+      </div>
+    </section>
+ 
+    <!-- LANZAMIENTOS -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Lanzamientos recientes</h2>
+        <span class="see-all" onclick="showView('perfumes')">Ver todos →</span>
+      </div>
+      <div class="perfume-grid" id="newGrid"></div>
+    </section>
+ 
+    <!-- MARCAS -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Marcas destacadas</h2>
+        <span class="see-all" onclick="showView('marcas')">Ver todas →</span>
+      </div>
+      <div class="brands-grid" id="brandsGrid"></div>
+    </section>
+ 
+    <!-- ARTÍCULOS -->
+    <section class="section">
+      <div class="section-header">
+        <h2 class="section-title">Editorial</h2>
+        <span class="see-all" onclick="showView('articulos')">Todos los artículos →</span>
+      </div>
+      <div class="articles-grid" id="articlesGrid"></div>
+    </section>
+ 
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <span class="logo footer-logo" onclick="showView('home')">Reko<span>Fum</span></span>
+          <p>La plataforma de referencia para amantes de la perfumería. Descubre, comparte y encuentra tu fragancia perfecta.</p>
+          <div class="footer-social">
+            <div class="social-btn" title="Instagram">ig</div>
+            <div class="social-btn" title="Twitter">tw</div>
+            <div class="social-btn" title="TikTok">tk</div>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Explorar</h4>
+            <a onclick="showView('perfumes')">Perfumes</a>
+            <a onclick="showView('marcas')">Marcas</a>
+            <a onclick="showView('perfumes')">Top 100</a>
+            <a onclick="showView('recomendador')">Recomendador</a>
+          </div>
+          <div class="footer-col">
+            <h4>Comunidad</h4>
+            <a onclick="showView('comunidad')">Foro</a>
+            <a onclick="showView('articulos')">Artículos</a>
+            <a onclick="showView('articulos')">Novedades</a>
+            <a onclick="showView('articulos')">Guías</a>
+          </div>
+          <div class="footer-col">
+            <h4>ReKoFum</h4>
+            <a>Sobre nosotros</a>
+            <a>Contacto</a>
+            <a>Privacidad</a>
+            <a>Términos</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 ReKoFum. Hecho con pasión por la perfumería.</p>
+      </div>
+    </footer>
+  </div>
+ 
+  <!-- ============================================
+       VIEW: PERFUMES CATÁLOGO
+       ============================================ -->
+  <div id="view-perfumes" class="view">
+    <div class="catalog-layout">
+      <aside class="filters-sidebar">
+        <div class="filters-header">
+          <h3>Filtros</h3>
+          <button onclick="resetFilters()" class="reset-btn">Limpiar</button>
+        </div>
+        <div class="filter-group">
+          <h4>Género</h4>
+          <label class="filter-check"><input type="checkbox" value="femenino" onchange="applyFilters()"><span>Femenino</span></label>
+          <label class="filter-check"><input type="checkbox" value="masculino" onchange="applyFilters()"><span>Masculino</span></label>
+          <label class="filter-check"><input type="checkbox" value="unisex" onchange="applyFilters()"><span>Unisex</span></label>
+        </div>
+        <div class="filter-group">
+          <h4>Familia olfativa</h4>
+          <label class="filter-check"><input type="checkbox" value="floral" onchange="applyFilters()"><span>Floral</span></label>
+          <label class="filter-check"><input type="checkbox" value="oriental" onchange="applyFilters()"><span>Oriental</span></label>
+          <label class="filter-check"><input type="checkbox" value="amaderado" onchange="applyFilters()"><span>Amaderado</span></label>
+          <label class="filter-check"><input type="checkbox" value="citrico" onchange="applyFilters()"><span>Cítrico</span></label>
+          <label class="filter-check"><input type="checkbox" value="acuatico" onchange="applyFilters()"><span>Acuático</span></label>
+          <label class="filter-check"><input type="checkbox" value="especiado" onchange="applyFilters()"><span>Especiado</span></label>
+          <label class="filter-check"><input type="checkbox" value="gourmand" onchange="applyFilters()"><span>Gourmand</span></label>
+        </div>
+        <div class="filter-group">
+          <h4>Estación</h4>
+          <label class="filter-check"><input type="checkbox" value="primavera" onchange="applyFilters()"><span>Primavera</span></label>
+          <label class="filter-check"><input type="checkbox" value="verano" onchange="applyFilters()"><span>Verano</span></label>
+          <label class="filter-check"><input type="checkbox" value="otono" onchange="applyFilters()"><span>Otoño</span></label>
+          <label class="filter-check"><input type="checkbox" value="invierno" onchange="applyFilters()"><span>Invierno</span></label>
+        </div>
+        <div class="filter-group">
+          <h4>Año</h4>
+          <div class="range-group">
+            <input type="range" min="1920" max="2025" value="1920" id="yearFrom" oninput="updateYearRange()">
+            <div class="range-labels"><span id="yearFromLabel">1920</span><span>2025</span></div>
+          </div>
+        </div>
+        <button class="btn-primary-full" onclick="applyFilters()">Aplicar filtros</button>
+      </aside>
+ 
+      <main>
+        <div class="catalog-top">
+          <h1 class="page-title">Catálogo de Perfumes</h1>
+          <div class="catalog-controls">
+            <span class="result-count" id="resultCount">Cargando...</span>
+            <select onchange="sortPerfumes(this.value)" class="sort-select">
+              <option value="popular">Más populares</option>
+              <option value="nuevo">Más recientes</option>
+              <option value="rating">Mejor valorados</option>
+              <option value="az">A–Z</option>
+            </select>
+            <div class="view-toggle">
+              <button class="view-btn active" id="gridBtn" onclick="setView('grid')" title="Cuadrícula">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="6" height="6" rx="1"/><rect x="8" y="0" width="6" height="6" rx="1"/><rect x="0" y="8" width="6" height="6" rx="1"/><rect x="8" y="8" width="6" height="6" rx="1"/></svg>
+              </button>
+              <button class="view-btn" id="listBtn" onclick="setView('list')" title="Lista">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="14" height="2" rx="1"/><rect x="0" y="6" width="14" height="2" rx="1"/><rect x="0" y="12" width="14" height="2" rx="1"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="active-filters" id="activeFilters"></div>
+        <div class="perfume-catalog-grid" id="catalogGrid"></div>
+      </main>
     </div>
-    <div class="footer-bottom">
-      <p>© 2025 ReKoFum. Hecho con pasión por la perfumería.</p>
+  </div>
+ 
+  <!-- ============================================
+       VIEW: MARCAS
+       ============================================ -->
+  <div id="view-marcas" class="view">
+    <div class="page-wrap">
+      <div class="page-hero-sm">
+        <h1>Marcas de Perfumería</h1>
+        <p>Descubre el universo de las casas de perfumes más icónicas del mundo</p>
+      </div>
+      <div class="brands-filter-bar">
+        <input type="text" placeholder="Buscar marca..." oninput="filterBrands(this.value)" class="brand-search-input">
+        <div class="alphabet-filter" id="alphabetFilter"></div>
+      </div>
+      <div class="brands-full-grid" id="brandsFullGrid"></div>
     </div>
-  </footer>
-
-  <!-- MODAL LOGIN -->
+  </div>
+ 
+  <!-- ============================================
+       VIEW: DETALLE PERFUME
+       ============================================ -->
+  <div id="view-perfume-detail" class="view">
+    <div class="perfume-detail-wrap" id="perfumeDetailWrap"></div>
+  </div>
+ 
+  <!-- ============================================
+       VIEW: RECOMENDADOR
+       ============================================ -->
+  <div id="view-recomendador" class="view">
+    <div class="recommender-page">
+      <div class="rec-hero">
+        <h1>Encuentra tu fragancia ideal</h1>
+        <p>Responde unas preguntas y te encontramos perfumes perfectos para ti</p>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="recProgress" style="width:0%"></div></div>
+ 
+      <div id="recWizard">
+        <div class="rec-step active" data-step="1">
+          <div class="step-counter">Paso 1 de 4</div>
+          <h2>¿Para quién es el perfume?</h2>
+          <div class="rec-options">
+            <div class="rec-option" onclick="selectOption(this,'genero','femenino')"><div class="rec-option-icon">♀</div><span>Femenino</span></div>
+            <div class="rec-option" onclick="selectOption(this,'genero','masculino')"><div class="rec-option-icon">♂</div><span>Masculino</span></div>
+            <div class="rec-option" onclick="selectOption(this,'genero','unisex')"><div class="rec-option-icon">⊕</div><span>Unisex</span></div>
+          </div>
+          <button class="rec-next" onclick="nextRecStep(2)" disabled>Siguiente →</button>
+        </div>
+ 
+        <div class="rec-step" data-step="2">
+          <div class="step-counter">Paso 2 de 4</div>
+          <h2>¿Qué familias olfativas te atraen?</h2>
+          <p class="step-subtitle">Puedes elegir varias</p>
+          <div class="rec-options multi">
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','floral')"><div class="rec-option-icon">🌸</div><span>Floral</span></div>
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','oriental')"><div class="rec-option-icon">✦</div><span>Oriental</span></div>
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','amaderado')"><div class="rec-option-icon">◈</div><span>Amaderado</span></div>
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','citrico')"><div class="rec-option-icon">◎</div><span>Cítrico</span></div>
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','acuatico')"><div class="rec-option-icon">◌</div><span>Acuático</span></div>
+            <div class="rec-option" onclick="toggleRecOption(this,'familia','especiado')"><div class="rec-option-icon">✸</div><span>Especiado</span></div>
+          </div>
+          <div class="rec-nav">
+            <button class="rec-back" onclick="nextRecStep(1)">← Atrás</button>
+            <button class="rec-next" onclick="nextRecStep(3)">Siguiente →</button>
+          </div>
+        </div>
+ 
+        <div class="rec-step" data-step="3">
+          <div class="step-counter">Paso 3 de 4</div>
+          <h2>¿Para qué ocasión?</h2>
+          <div class="rec-options">
+            <div class="rec-option" onclick="selectOption(this,'ocasion','diario')"><div class="rec-option-icon">☀</div><span>Día a día</span></div>
+            <div class="rec-option" onclick="selectOption(this,'ocasion','noche')"><div class="rec-option-icon">☽</div><span>Noche / salida</span></div>
+            <div class="rec-option" onclick="selectOption(this,'ocasion','trabajo')"><div class="rec-option-icon">◻</div><span>Trabajo / formal</span></div>
+            <div class="rec-option" onclick="selectOption(this,'ocasion','especial')"><div class="rec-option-icon">★</div><span>Ocasión especial</span></div>
+          </div>
+          <div class="rec-nav">
+            <button class="rec-back" onclick="nextRecStep(2)">← Atrás</button>
+            <button class="rec-next" onclick="nextRecStep(4)" disabled>Siguiente →</button>
+          </div>
+        </div>
+ 
+        <div class="rec-step" data-step="4">
+          <div class="step-counter">Paso 4 de 4</div>
+          <h2>¿Cuál es tu presupuesto?</h2>
+          <div class="rec-options">
+            <div class="rec-option" onclick="selectOption(this,'precio','bajo')"><div class="rec-option-icon">€</div><span>Hasta 50€</span></div>
+            <div class="rec-option" onclick="selectOption(this,'precio','medio')"><div class="rec-option-icon">€€</div><span>50–150€</span></div>
+            <div class="rec-option" onclick="selectOption(this,'precio','alto')"><div class="rec-option-icon">€€€</div><span>150€ o más</span></div>
+          </div>
+          <div class="rec-nav">
+            <button class="rec-back" onclick="nextRecStep(3)">← Atrás</button>
+            <button class="rec-next" onclick="showRecommendations()" disabled>Ver mis recomendaciones →</button>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="rec-results" id="recResults" style="display:none">
+        <h2>Tus recomendaciones personalizadas</h2>
+        <p class="rec-subtitle" id="recSubtitle"></p>
+        <div class="perfume-grid" id="recResultsGrid" style="text-align:left;"></div>
+        <button class="btn-ghost-lg" onclick="restartRec()" style="display:block;margin:0 auto;">Volver a empezar</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- ============================================
+       VIEW: COMUNIDAD
+       ============================================ -->
+  <div id="view-comunidad" class="view">
+    <div class="community-layout">
+      <main>
+        <button class="new-post-btn" onclick="openModal('loginModal')">+ Nueva publicación</button>
+        <div class="forum-tabs">
+          <button class="tab active" onclick="switchForumTab(this,'all')">Recientes</button>
+          <button class="tab" onclick="switchForumTab(this,'popular')">Populares</button>
+          <button class="tab" onclick="switchForumTab(this,'resenias')">Reseñas</button>
+          <button class="tab" onclick="switchForumTab(this,'preguntas')">Preguntas</button>
+        </div>
+        <div id="postsContainer"></div>
+      </main>
+      <aside>
+        <div class="sidebar-card">
+          <h3>Temas en tendencia</h3>
+          <div class="trending-topic"><span class="trend-num">1</span><span>Perfumes para el invierno 2025</span></div>
+          <div class="trending-topic"><span class="trend-num">2</span><span>¿Aventus vs Sauvage?</span></div>
+          <div class="trending-topic"><span class="trend-num">3</span><span>Mejores ouds occidentales</span></div>
+          <div class="trending-topic"><span class="trend-num">4</span><span>Perfumes para la oficina</span></div>
+          <div class="trending-topic"><span class="trend-num">5</span><span>Lanzamientos noviembre 2025</span></div>
+        </div>
+        <div class="sidebar-card" id="activeUsersSidebar"></div>
+      </aside>
+    </div>
+  </div>
+ 
+  <!-- ============================================
+       VIEW: ARTÍCULOS
+       ============================================ -->
+  <div id="view-articulos" class="view">
+    <div class="articles-page">
+      <div class="section-header" style="margin-bottom:10px;">
+        <h1 style="font-family:var(--serif);font-size:42px;font-weight:600;">Editorial</h1>
+      </div>
+      <div class="article-filter-bar">
+        <button onclick="filterArticles('all',this)" class="article-filter-btn active">Todos</button>
+        <button onclick="filterArticles('Novedades',this)" class="article-filter-btn">Novedades</button>
+        <button onclick="filterArticles('Guías',this)" class="article-filter-btn">Guías</button>
+        <button onclick="filterArticles('Top listas',this)" class="article-filter-btn">Top listas</button>
+        <button onclick="filterArticles('Historia',this)" class="article-filter-btn">Historia</button>
+        <button onclick="filterArticles('Tendencias',this)" class="article-filter-btn">Tendencias</button>
+      </div>
+      <div class="articles-grid" id="articlesFullGrid"></div>
+    </div>
+  </div>
+ 
+  <!-- ============================================
+       MODAL LOGIN / REGISTRO
+       ============================================ -->
   <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
     <div class="modal" onclick="event.stopPropagation()">
       <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
@@ -196,7 +1185,7 @@
         <h3>Bienvenido de nuevo</h3>
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Contraseña">
-        <button class="btn-primary-full">Entrar</button>
+        <button class="btn-primary-full" onclick="loginSuccess()">Entrar</button>
         <div class="modal-divider"><span>o continúa con</span></div>
         <button class="btn-oauth">
           <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
@@ -208,12 +1197,872 @@
         <input type="text" placeholder="Nombre de usuario">
         <input type="email" placeholder="Email">
         <input type="password" placeholder="Contraseña">
-        <button class="btn-primary-full">Crear cuenta</button>
+        <button class="btn-primary-full" onclick="loginSuccess()">Crear cuenta</button>
       </div>
     </div>
   </div>
-
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+ 
+  <!-- ============================================
+       JAVASCRIPT — DATOS + LÓGICA COMPLETA
+       ============================================ -->
+  <script>
+  // =============================================
+  // BASE DE DATOS
+  // =============================================
+  const perfumesDB = [
+    {
+      id:1, nombre:"N°5", marca:"Chanel", marcaId:1, año:1921,
+      genero:"femenino", rating:4.7, votos:48200,
+      familia:["floral","aldehido"], estacion:["primavera","verano"],
+      duracion:78, proyeccion:72, dia:62,
+      bottleColor:"linear-gradient(160deg,#F9F4EC,#E8D5A3)",
+      notas:{ salida:["Aldehídos","Neroli","Ylang-ylang"], corazon:["Rosa","Jazmín","Lirio del valle"], fondo:["Sándalo","Vainilla","Vetiver"] },
+      descripcion:"El perfume más icónico de la historia. Creado por Ernest Beaux en 1921, N°5 revolucionó la perfumería moderna con su uso pionero de aldehídos artificiales que envuelven un corazón floral eterno.",
+      reviews:[
+        { user:"parfumista_mx", rating:5, fecha:"hace 2 días", likes:34, texto:"Clásico atemporal. El aroma de la mujer moderna. Una obra maestra que jamás pasa de moda. La sillage es increíble.", tags:["Clásico","Elegante","Femenino"] },
+        { user:"scentlover_es", rating:4, fecha:"hace 1 semana", likes:19, texto:"Magnífico pero puede resultar intenso para uso diario. Ideal para ocasiones especiales. La duración es excepcional.", tags:["Intenso","Especial"] }
+      ]
+    },
+    {
+      id:2, nombre:"Replica Jazz Club", marca:"Maison Margiela", marcaId:2, año:2013,
+      genero:"masculino", rating:4.5, votos:23180,
+      familia:["amaderado","especiado","oriental"], estacion:["otono","invierno"],
+      duracion:72, proyeccion:58, dia:28,
+      bottleColor:"linear-gradient(160deg,#E8E0D5,#C5B49A)",
+      notas:{ salida:["Ron","Café","Vetiver"], corazon:["Clavo","Tabaco","Iris"], fondo:["Vainilla","Madera","Ámbar gris"] },
+      descripcion:"Una noche en un jazz bar de los años 50. La combinación de ron, café y tabaco crea una fragancia sofisticada y envolvente que evoca conversaciones íntimas al calor de una copa.",
+      reviews:[
+        { user:"marc_olfato", rating:5, fecha:"hace 3 días", likes:47, texto:"Jazz Club te transporta a una noche en un bar de los años 50. La combinación de ron, café y tabaco es magistral: sofisticado sin ser pesado, seductor sin ser vulgar.", tags:["Seductor","Amaderado","Noche"] },
+        { user:"scentvisionary", rating:4, fecha:"hace 1 semana", likes:23, texto:"El fondo de vainilla y madera lo hace perfectamente wearable. No tan exclusivo como otros de la colección Replica, pero definitivamente uno de los más acertados.", tags:["Wearable","Otoño"] }
+      ]
+    },
+    {
+      id:3, nombre:"Sauvage", marca:"Dior", marcaId:3, año:2015,
+      genero:"masculino", rating:4.3, votos:61400,
+      familia:["amaderado","especiado","citrico"], estacion:["primavera","verano","otono"],
+      duracion:85, proyeccion:88, dia:68,
+      bottleColor:"linear-gradient(160deg,#1A2744,#0D1B3E)",
+      notas:{ salida:["Bergamota","Pimienta","Lavanda"], corazon:["Pimienta de Sichuan","Lavanda","Geranio rosa"], fondo:["Ambroxan","Cedro","Vetiver"] },
+      descripcion:"Salvaje y refinado a la vez. Sauvage evoca la libertad y los paisajes áridos del sur de Francia con su explosión de bergamota y la calidez duradera del ambroxan.",
+      reviews:[
+        { user:"dior_fan_barca", rating:5, fecha:"hace 1 día", likes:82, texto:"El perfume más vendido del mundo tiene razón de serlo. Versátil, fresco, poderoso. Sillage bestial. Todo el mundo lo huele.", tags:["Versátil","Bestia","Verano"] },
+        { user:"noseknows", rating:3, fecha:"hace 5 días", likes:12, texto:"Muy bueno pero demasiado común. Lo lleva todo el mundo. Técnicamente impecable pero sin personalidad propia para mí.", tags:["Común","Fresco"] }
+      ]
+    },
+    {
+      id:4, nombre:"Black Orchid", marca:"Tom Ford", marcaId:4, año:2006,
+      genero:"unisex", rating:4.6, votos:31200,
+      familia:["oriental","floral","especiado"], estacion:["otono","invierno"],
+      duracion:90, proyeccion:82, dia:22,
+      bottleColor:"linear-gradient(160deg,#2C1A2E,#1A0D1C)",
+      notas:{ salida:["Trufa negra","Ylang-ylang","Bergamota"], corazon:["Orquídea negra","Flor de loto","Frutas"], fondo:["Pachulí","Vainilla","Vetiver","Sándalo"] },
+      descripcion:"Oscuro, sensual, misterioso. Black Orchid es una declaración de sofisticación con su mezcla única de trufa negra, orquídeas y especias orientales. Una fragancia para la noche más especial.",
+      reviews:[
+        { user:"luxe_scentist", rating:5, fecha:"hace 4 horas", likes:56, texto:"Absolutamente magnífico. La trufa negra en la salida es una experiencia única. Deja una estela impresionante que perdura horas. Para ocasiones muy especiales.", tags:["Lujoso","Noche","Especial"] }
+      ]
+    },
+    {
+      id:5, nombre:"Light Blue", marca:"Dolce & Gabbana", marcaId:5, año:2001,
+      genero:"femenino", rating:4.2, votos:52000,
+      familia:["citrico","acuatico","floral"], estacion:["primavera","verano"],
+      duracion:55, proyeccion:50, dia:85,
+      bottleColor:"linear-gradient(160deg,#D4E8F0,#9CC5D8)",
+      notas:{ salida:["Manzana siciliana","Cedro","Campanilla"], corazon:["Bambú","Jazmín","Rosa blanca"], fondo:["Cedro","Almizcle","Ámbar"] },
+      descripcion:"El verano en una botella. Light Blue captura la esencia del Mediterráneo: frescura cítrica, brisa marina y calidez del sol sobre la piel. Un clásico de temporada incontestable.",
+      reviews:[{ user:"verano_eterno", rating:5, fecha:"hace 2 semanas", likes:38, texto:"Mi perfume de verano de siempre. Fresco, ligero, limpio. Perfecto para el calor y para la playa. Las notas cítricas son maravillosas.", tags:["Verano","Playa","Fresco"] }]
+    },
+    {
+      id:6, nombre:"Oud Wood", marca:"Tom Ford", marcaId:4, año:2007,
+      genero:"unisex", rating:4.7, votos:28900,
+      familia:["amaderado","oriental"], estacion:["otono","invierno"],
+      duracion:88, proyeccion:75, dia:35,
+      bottleColor:"linear-gradient(160deg,#3D2A1A,#231507)",
+      notas:{ salida:["Oud","Rosa","Cardamomo"], corazon:["Sándalo","Vetiver","Cedro"], fondo:["Ámbar","Vainilla","Tonka"] },
+      descripcion:"El oud más accesible y refinado de la perfumería occidental. Tom Ford toma el ingrediente más preciado de Oriente y lo envuelve en una capa de sándalo y cedro que lo hace irresistible.",
+      reviews:[{ user:"oud_lover_mad", rating:5, fecha:"hace 6 días", likes:67, texto:"El mejor oud occidental sin duda. No tan intenso como los orientales puros pero con toda la magia de ese palo precioso. Adictivo.", tags:["Oud","Adictivo","Lujo"] }]
+    },
+    {
+      id:7, nombre:"La Vie est Belle", marca:"Lancôme", marcaId:6, año:2012,
+      genero:"femenino", rating:4.3, votos:45600,
+      familia:["oriental","floral","gourmand"], estacion:["otono","invierno","primavera"],
+      duracion:80, proyeccion:70, dia:55,
+      bottleColor:"linear-gradient(160deg,#F5E6F0,#D4A8C4)",
+      notas:{ salida:["Grosella negra","Pera"], corazon:["Iris","Jazmín","Neroli"], fondo:["Pralinado","Vainilla","Pachulí","Sándalo"] },
+      descripcion:"Un manifiesto de felicidad en formato olfativo. La iris y el pralinado crean una dualidad única entre elegancia floral y gourmand dulce que ha conquistado millones de corazones.",
+      reviews:[]
+    },
+    {
+      id:8, nombre:"Aventus", marca:"Creed", marcaId:7, año:2010,
+      genero:"masculino", rating:4.8, votos:37800,
+      familia:["citrico","amaderado","floral"], estacion:["primavera","verano","otono"],
+      duracion:82, proyeccion:76, dia:70,
+      bottleColor:"linear-gradient(160deg,#2A3A2A,#162416)",
+      notas:{ salida:["Piña","Bergamota","Manzana","Grosella negra"], corazon:["Abedul","Pachulí","Rosa","Jazmín"], fondo:["Almizcle","Roble","Ámbar gris","Vetiver"] },
+      descripcion:"El santo grial de la perfumería masculina de nicho. Inspirado en la vida de Napoleón Bonaparte, Aventus es una oda al éxito, la fuerza y la elegancia. Referencia absoluta del sector.",
+      reviews:[{ user:"aventus_obsessed", rating:5, fecha:"hace 3 días", likes:94, texto:"El mejor perfume masculino creado jamás. La combinación de piña y abedul crea algo completamente único. Sillage extraordinario, longevidad bestial. Vale cada euro.", tags:["Santo grial","Masculino","Nicho"] }]
+    },
+    {
+      id:9, nombre:"Coco Mademoiselle", marca:"Chanel", marcaId:1, año:2001,
+      genero:"femenino", rating:4.5, votos:55400,
+      familia:["oriental","floral","citrico"], estacion:["primavera","otono"],
+      duracion:75, proyeccion:68, dia:65,
+      bottleColor:"linear-gradient(160deg,#1A1A1A,#333333)",
+      notas:{ salida:["Naranja","Bergamota","Mandarina"], corazon:["Rosa","Ylang-ylang","Mimosa"], fondo:["Pachulí","Vetiver","Almizcle","Sándalo"] },
+      descripcion:"La alternativa joven y audaz al clásico N°5. Coco Mademoiselle combina la frescura cítrica de la salida con un corazón floral y una base oriental ahumada de gran personalidad.",
+      reviews:[]
+    },
+    {
+      id:10, nombre:"Flowerbomb", marca:"Viktor & Rolf", marcaId:8, año:2005,
+      genero:"femenino", rating:4.4, votos:42000,
+      familia:["floral","oriental","gourmand"], estacion:["primavera","otono","invierno"],
+      duracion:85, proyeccion:78, dia:50,
+      bottleColor:"linear-gradient(160deg,#F0C8D8,#D48AAC)",
+      notas:{ salida:["Bergamota","Té"], corazon:["Jazmín","Catleya","Rosa","Freesia"], fondo:["Pachulí","Almizcle","Vainilla"] },
+      descripcion:"Una explosión floral de feminidad irresistible. Flowerbomb redefine el concepto de perfume femenino con su bouquet exuberante y su base oriental cálida y envolvente.",
+      reviews:[]
+    },
+    {
+      id:11, nombre:"Y", marca:"Yves Saint Laurent", marcaId:9, año:2017,
+      genero:"masculino", rating:4.4, votos:28500,
+      familia:["amaderado","especiado","citrico"], estacion:["primavera","verano","otono"],
+      duracion:76, proyeccion:72, dia:72,
+      bottleColor:"linear-gradient(160deg,#1E3A5F,#0A1E35)",
+      notas:{ salida:["Manzana","Bergamota","Jengibre"], corazon:["Salvia","Geranio","Violeta"], fondo:["Cedro","Ámbar","Almizcle"] },
+      descripcion:"Y representa al hombre moderno: activo, apasionado, libre. La salida de manzana y jengibre evoluciona hacia un corazón especiado y una base de cedro cálida y duradera.",
+      reviews:[]
+    },
+    {
+      id:12, nombre:"Miss Dior", marca:"Dior", marcaId:3, año:1947,
+      genero:"femenino", rating:4.6, votos:38900,
+      familia:["floral","citrico"], estacion:["primavera","verano"],
+      duracion:70, proyeccion:62, dia:75,
+      bottleColor:"linear-gradient(160deg,#F5E8E8,#E8C4C4)",
+      notas:{ salida:["Bergamota","Albahaca"], corazon:["Rosa de mayo","Jazmín","Iris"], fondo:["Almizcle","Pachulí","Ámbar"] },
+      descripcion:"Un clásico inmortal de la alta perfumería francesa. Miss Dior representa la feminidad elegante en su expresión más pura: flores de mayo, jazmín exquisito y una base ligeramente terrosa.",
+      reviews:[]
+    }
+  ];
+ 
+  const marcasDB = [
+    { id:1, nombre:"Chanel", pais:"Francia", perfumes:142, descripcion:"La casa de moda más icónica del mundo, fundada por Gabrielle Chanel en 1910." },
+    { id:2, nombre:"Maison Margiela", pais:"Francia", perfumes:48, descripcion:"La colección Replica reimagina momentos de la vida cotidiana en formato olfativo." },
+    { id:3, nombre:"Dior", pais:"Francia", perfumes:187, descripcion:"Christian Dior fundó su casa de modas en 1946 y lanzó Miss Dior al año siguiente." },
+    { id:4, nombre:"Tom Ford", pais:"Estados Unidos", perfumes:93, descripcion:"El diseñador texano creó una de las líneas de nicho más deseadas del mundo." },
+    { id:5, nombre:"Dolce & Gabbana", pais:"Italia", perfumes:76, descripcion:"La firma italiana combina sensualidad mediterránea con elegancia a la italiana." },
+    { id:6, nombre:"Lancôme", pais:"Francia", perfumes:65, descripcion:"Maison de beauté fundada en 1935 conocida por sus fragancias femeninas sofisticadas." },
+    { id:7, nombre:"Creed", pais:"Reino Unido", perfumes:38, descripcion:"Casa de perfumería fundada en 1760. Proveedores de la realeza europea." },
+    { id:8, nombre:"Viktor & Rolf", pais:"Países Bajos", perfumes:29, descripcion:"El dúo de diseñadores holandeses revolucionó la perfumería con Flowerbomb." },
+    { id:9, nombre:"Yves Saint Laurent", pais:"Francia", perfumes:88, descripcion:"YSL es sinónimo de lujo accesible y fragancias de gran proyección." },
+    { id:10, nombre:"Jo Malone", pais:"Reino Unido", perfumes:54, descripcion:"Fragancias sofisticadas para combinar y crear tu propia expresión olfativa." },
+    { id:11, nombre:"Hermès", pais:"Francia", perfumes:67, descripcion:"La maison del Faubourg Saint-Honoré lleva su elegancia al universo de los perfumes." },
+    { id:12, nombre:"Byredo", pais:"Suecia", perfumes:31, descripcion:"La firma escandinava ha conquistado el mercado de nicho con su estética minimalista." },
+    { id:13, nombre:"Acqua di Parma", pais:"Italia", perfumes:45, descripcion:"La fragancia italiana más antigua del siglo XX, nacida en Parma en 1916." },
+    { id:14, nombre:"Guerlain", pais:"Francia", perfumes:120, descripcion:"La maison de perfumería más antigua de París, fundada en 1828." },
+    { id:15, nombre:"Givenchy", pais:"Francia", perfumes:72, descripcion:"La elegancia parisina de Hubert de Givenchy trasladada al mundo de la perfumería." },
+    { id:16, nombre:"Giorgio Armani", pais:"Italia", perfumes:85, descripcion:"El maestro italiano del minimalismo traslada su visión a fragancias atemporales." }
+  ];
+ 
+  const articulosDB = [
+    { id:1, titulo:"Los 10 mejores perfumes para el otoño 2025", categoria:"Top listas", fecha:"15 nov 2025", resumen:"Con la llegada del frío, los amaderados y orientales toman protagonismo. Hemos seleccionado las fragancias más destacadas para esta temporada.", imagen:"otoño" },
+    { id:2, titulo:"Guía completa para entender la pirámide olfativa", categoria:"Guías", fecha:"8 nov 2025", resumen:"¿Qué son las notas de salida, corazón y fondo? Todo lo que necesitas saber para interpretar la evolución de cualquier fragancia sobre tu piel.", imagen:"guia" },
+    { id:3, titulo:"Novedades: Los lanzamientos más esperados de 2025", categoria:"Novedades", fecha:"1 nov 2025", resumen:"Las grandes maisons y las firmas de nicho han presentado sus colecciones más ambiciosas. Analizamos los lanzamientos que han sacudido el sector.", imagen:"novedades" },
+    { id:4, titulo:"La historia detrás de Chanel N°5", categoria:"Historia", fecha:"22 oct 2025", resumen:"El perfume más vendido del mundo cumple más de 100 años. Repasamos la historia de la creación que cambió la perfumería para siempre.", imagen:"historia" },
+    { id:5, titulo:"Cómo aplicar el perfume para que dure más", categoria:"Guías", fecha:"14 oct 2025", resumen:"La técnica de aplicación marca la diferencia. Te enseñamos los puntos de pulso, cómo preparar la piel y los errores más comunes que debes evitar.", imagen:"tips" },
+    { id:6, titulo:"Perfumes unisex: La nueva era sin género", categoria:"Tendencias", fecha:"5 oct 2025", resumen:"Las fronteras de género en la perfumería han desaparecido. Exploramos el auge de las fragancias que trascienden cualquier clasificación.", imagen:"unisex" }
+  ];
+ 
+  const postsDB = [
+    { user:'marc_olfato', time:'hace 2 horas', cat:'Debate', title:'¿Cuál es el mejor perfume masculino de 2025?', preview:'Llevamos un año increíble en cuanto a lanzamientos masculinos. Para mí, el que más me ha sorprendido ha sido el nuevo de Dior. ¿Cuál es vuestra opinión?', replies:23, likes:47 },
+    { user:'scentvisionary', time:'hace 4 horas', cat:'Reseña', title:'Mi reseña completa de Aventus (lote 23F01)', preview:'Después de probar varios lotes a lo largo de los años, finalmente me hice con este batch que muchos consideran de los mejores. Os cuento mi experiencia en detalle.', replies:18, likes:82 },
+    { user:'parfumista_mx', time:'hace 6 horas', cat:'Pregunta', title:'¿Dónde comprar nicho en Madrid sin morir en el intento?', preview:'Recién llegado a España y busco tiendas especializadas en perfumería de nicho. ¿Conocéis algún lugar especialmente bueno en Madrid o Barcelona?', replies:31, likes:15 },
+    { user:'luxe_scentist', time:'hace 1 día', cat:'Lista', title:'Los 5 ouds que todo amante de la perfumería debe tener', preview:'Después de años explorando el mundo del oud, he reducido mi selección a 5 imprescindibles que van desde lo accesible hasta lo más exclusivo del mercado.', replies:44, likes:96 },
+    { user:'noseknows', time:'hace 2 días', cat:'Debate', title:'Perfumes de farmacia que merecen el mismo respeto que el nicho', preview:'Llevo años oyendo que los perfumes de farmacia son inferiores. Creo que esto ya no es así. Hay joyas absolutas a precio de risa que superan a muchos de nicho.', replies:67, likes:138 }
+  ];
+ 
+  // =============================================
+  // SPA NAVIGATION
+  // =============================================
+  const VIEWS = ['home','perfumes','marcas','perfume-detail','recomendador','comunidad','articulos'];
+  let currentView = 'home';
+ 
+  function showView(viewName) {
+    VIEWS.forEach(v => {
+      const el = document.getElementById('view-'+v);
+      if (el) el.classList.remove('active');
+    });
+    const target = document.getElementById('view-'+viewName);
+    if (target) { target.classList.add('active'); currentView = viewName; }
+ 
+    // Update nav
+    document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
+    const navEl = document.getElementById('nav-'+viewName);
+    if (navEl) navEl.classList.add('active');
+ 
+    // Lazy init views
+    if (viewName === 'perfumes') initCatalogView();
+    if (viewName === 'marcas') initMarcasView();
+    if (viewName === 'comunidad') initComunidadView();
+    if (viewName === 'articulos') initArticulosView();
+    if (viewName === 'recomendador') resetRec();
+ 
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+ 
+  function showPerfumesFiltered(genero, familia) {
+    showView('perfumes');
+    setTimeout(() => {
+      if (genero) {
+        const cb = document.querySelector(`.filter-check input[value="${genero}"]`);
+        if (cb) { cb.checked = true; applyFilters(); }
+      }
+      if (familia) {
+        const cb = document.querySelector(`.filter-check input[value="${familia}"]`);
+        if (cb) { cb.checked = true; applyFilters(); }
+      }
+    }, 100);
+  }
+ 
+  function showPerfumeDetail(id) {
+    const p = perfumesDB.find(x => x.id === id) || perfumesDB[0];
+    renderPerfumeDetailPage(p);
+    showView('perfume-detail');
+    // nav highlight perfumes
+    document.querySelectorAll('.nav-link').forEach(nl => nl.classList.remove('active'));
+    const navEl = document.getElementById('nav-perfumes');
+    if (navEl) navEl.classList.add('active');
+  }
+ 
+  // =============================================
+  // HEADER SCROLL
+  // =============================================
+  window.addEventListener('scroll', () => {
+    document.getElementById('header').classList.toggle('scrolled', window.scrollY > 40);
+  });
+ 
+  // =============================================
+  // MENU MÓVIL
+  // =============================================
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+    document.getElementById('menuToggle').classList.toggle('open');
+  }
+ 
+  // =============================================
+  // SEARCH
+  // =============================================
+  document.addEventListener('DOMContentLoaded', () => {
+    const inp = document.getElementById('searchInput');
+    const drop = document.getElementById('searchDropdown');
+    if (!inp || !drop) return;
+    inp.addEventListener('input', () => {
+      const q = inp.value.trim().toLowerCase();
+      if (q.length < 2) { drop.classList.remove('open'); return; }
+      const results = perfumesDB.filter(p =>
+        p.nombre.toLowerCase().includes(q) || p.marca.toLowerCase().includes(q)
+      ).slice(0, 6);
+      const brands = marcasDB.filter(m => m.nombre.toLowerCase().includes(q)).slice(0, 3);
+      drop.innerHTML = [
+        results.length ? `<div class="sd-group">Perfumes</div>` + results.map(p =>
+          `<div class="sd-item" onclick="showPerfumeDetail(${p.id});this.closest('.search-dropdown').classList.remove('open')">
+            <div class="sd-dot perf"></div>
+            <div><strong>${p.nombre}</strong><span>${p.marca}</span></div>
+            <span class="sd-rating">${p.rating.toFixed(1)} ★</span>
+          </div>`).join('') : '',
+        brands.length ? `<div class="sd-group">Marcas</div>` + brands.map(b =>
+          `<div class="sd-item" onclick="showView('marcas')">
+            <div class="sd-dot brand"></div>
+            <div><strong>${b.nombre}</strong><span>${b.pais}</span></div>
+          </div>`).join('') : '',
+        `<div class="sd-footer" onclick="showView('perfumes')">Ver todos los resultados para "${inp.value}" →</div>`
+      ].join('');
+      drop.classList.add('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#searchBar')) drop.classList.remove('open');
+    });
+    inp.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') { showView('perfumes'); drop.classList.remove('open'); }
+    });
+  });
+ 
+  // =============================================
+  // MODALES
+  // =============================================
+  function openModal(id) { document.getElementById(id)?.classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeModal(id) { document.getElementById(id)?.classList.remove('open'); document.body.style.overflow = ''; }
+  function switchTab(btn, tabId) {
+    const modal = btn.closest('.modal');
+    modal.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+    modal.querySelectorAll('.modal-form').forEach(f => f.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId)?.classList.add('active');
+  }
+  function loginSuccess() { closeModal('loginModal'); }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.open').forEach(m => {
+        m.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    }
+  });
+ 
+  // =============================================
+  // HELPERS — STARS / CARDS
+  // =============================================
+  function renderStars(rating) {
+    const full = Math.floor(rating);
+    const half = rating % 1 >= 0.5;
+    let s = '';
+    for (let i = 0; i < 5; i++) {
+      if (i < full) s += '<span class="star full">★</span>';
+      else if (i === full && half) s += '<span class="star half">★</span>';
+      else s += '<span class="star empty">☆</span>';
+    }
+    return `<span class="stars-wrap">${s}</span>`;
+  }
+ 
+  function renderPerfumeCard(p) {
+    return `
+      <div class="perfume-card" onclick="showPerfumeDetail(${p.id})">
+        <div class="pc-bottle" style="background:${p.bottleColor || 'linear-gradient(160deg,#F5EEE4,#D4BC99)'}">
+          <div class="pc-shine"></div>
+          <div class="pc-label"><span>${p.nombre}</span></div>
+        </div>
+        <div class="pc-info">
+          <div class="pc-brand">${p.marca}</div>
+          <div class="pc-name">${p.nombre}</div>
+          <div class="pc-year">${p.año}</div>
+          <div class="pc-rating">${renderStars(p.rating)} <span>${p.rating.toFixed(1)}</span></div>
+          <div class="pc-tags">
+            <span class="pc-tag ${p.genero}">${p.genero}</span>
+            ${p.familia?.slice(0,1).map(f => `<span class="pc-tag">${f}</span>`).join('') || ''}
+          </div>
+        </div>
+      </div>`;
+  }
+ 
+  function renderListCard(p) {
+    return `
+      <div class="list-card" onclick="showPerfumeDetail(${p.id})">
+        <div class="list-bottle" style="background:${p.bottleColor || 'linear-gradient(160deg,#F5EEE4,#D4BC99)'}"></div>
+        <div class="list-info">
+          <div class="list-brand">${p.marca}</div>
+          <div class="list-name">${p.nombre}</div>
+          <div class="list-meta">
+            <span class="pc-tag ${p.genero}">${p.genero}</span>
+            <span>${p.año}</span>
+            ${p.familia?.slice(0,2).map(f => `<span class="pc-tag">${f}</span>`).join('') || ''}
+          </div>
+        </div>
+        <div class="list-rating">
+          ${renderStars(p.rating)}
+          <span>${p.rating.toFixed(1)} · ${(p.votos/1000).toFixed(1)}k votos</span>
+        </div>
+      </div>`;
+  }
+ 
+  // =============================================
+  // HOME — RENDER SECCIONES
+  // =============================================
+  document.addEventListener('DOMContentLoaded', () => {
+    // Trending
+    const tg = document.getElementById('trendingGrid');
+    if (tg) tg.innerHTML = [...perfumesDB].sort((a,b) => b.votos - a.votos).slice(0,6).map(renderPerfumeCard).join('');
+ 
+    // Nuevos
+    const ng = document.getElementById('newGrid');
+    if (ng) ng.innerHTML = [...perfumesDB].sort((a,b) => b.año - a.año).slice(0,6).map(renderPerfumeCard).join('');
+ 
+    // Marcas
+    const bg = document.getElementById('brandsGrid');
+    if (bg) bg.innerHTML = marcasDB.slice(0,8).map(m => `
+      <div class="brand-mini-card" onclick="showView('marcas')">
+        <div class="brand-initial-lg">${m.nombre[0]}</div>
+        <div class="brand-mini-name">${m.nombre}</div>
+        <div class="brand-mini-count">${m.perfumes} perfumes</div>
+      </div>`).join('');
+ 
+    // Artículos
+    const ag = document.getElementById('articlesGrid');
+    if (ag) ag.innerHTML = articulosDB.slice(0,3).map(a => `
+      <div class="article-card" onclick="showView('articulos')">
+        <div class="article-img art-${a.imagen}"></div>
+        <div class="article-info">
+          <span class="article-cat">${a.categoria}</span>
+          <h3 class="article-title">${a.titulo}</h3>
+          <p class="article-resumen">${a.resumen}</p>
+          <span class="article-fecha">${a.fecha}</span>
+        </div>
+      </div>`).join('');
+  });
+ 
+  // =============================================
+  // CATÁLOGO — PERFUMES PAGE
+  // =============================================
+  let currentCatalogView = 'grid';
+  let catalogInitialized = false;
+ 
+  function initCatalogView() {
+    if (!catalogInitialized) {
+      renderCatalog(perfumesDB, currentCatalogView);
+      document.getElementById('resultCount').textContent = perfumesDB.length + ' perfumes';
+      catalogInitialized = true;
+    }
+  }
+ 
+  function renderCatalog(data, view) {
+    const el = document.getElementById('catalogGrid');
+    if (!el) return;
+    if (view === 'list') {
+      el.className = 'perfume-catalog-list';
+      el.innerHTML = data.map(renderListCard).join('');
+    } else {
+      el.className = 'perfume-catalog-grid';
+      el.innerHTML = data.map(renderPerfumeCard).join('');
+    }
+  }
+ 
+  function setView(v) {
+    currentCatalogView = v;
+    document.getElementById('gridBtn').classList.toggle('active', v === 'grid');
+    document.getElementById('listBtn').classList.toggle('active', v === 'list');
+    renderCatalog(window._filtered || perfumesDB, v);
+  }
+ 
+  function resetFilters() {
+    document.querySelectorAll('.filter-check input').forEach(el => el.checked = false);
+    window._filtered = null;
+    renderCatalog(perfumesDB, currentCatalogView);
+    document.getElementById('resultCount').textContent = perfumesDB.length + ' perfumes';
+    document.getElementById('activeFilters').innerHTML = '';
+  }
+ 
+  function applyFilters() {
+    const checked = [...document.querySelectorAll('.filter-check input:checked')].map(el => el.value);
+    let filtered = perfumesDB;
+    const genders = checked.filter(v => ['femenino','masculino','unisex'].includes(v));
+    const families = checked.filter(v => ['floral','oriental','amaderado','citrico','acuatico','especiado','gourmand'].includes(v));
+    const seasons = checked.filter(v => ['primavera','verano','otono','invierno'].includes(v));
+    if (genders.length) filtered = filtered.filter(p => genders.includes(p.genero));
+    if (families.length) filtered = filtered.filter(p => families.some(f => p.familia?.includes(f)));
+    if (seasons.length) filtered = filtered.filter(p => seasons.some(s => p.estacion?.includes(s)));
+    window._filtered = filtered;
+    renderCatalog(filtered, currentCatalogView);
+    document.getElementById('resultCount').textContent = filtered.length + ' perfumes';
+    const af = document.getElementById('activeFilters');
+    if (af) af.innerHTML = checked.map(c => `<span class="af-tag">${c} <button onclick="removeFilter('${c}')">✕</button></span>`).join('');
+  }
+ 
+  function removeFilter(val) {
+    const el = document.querySelector(`.filter-check input[value="${val}"]`);
+    if (el) { el.checked = false; applyFilters(); }
+  }
+ 
+  function sortPerfumes(by) {
+    let data = [...(window._filtered || perfumesDB)];
+    if (by === 'nuevo') data.sort((a,b) => b.año - a.año);
+    else if (by === 'rating') data.sort((a,b) => b.rating - a.rating);
+    else if (by === 'az') data.sort((a,b) => a.nombre.localeCompare(b.nombre));
+    else data.sort((a,b) => b.votos - a.votos);
+    renderCatalog(data, currentCatalogView);
+  }
+ 
+  function updateYearRange() {
+    const val = document.getElementById('yearFrom').value;
+    document.getElementById('yearFromLabel').textContent = val;
+  }
+ 
+  // =============================================
+  // MARCAS PAGE
+  // =============================================
+  function initMarcasView() {
+    renderBrandsPage(marcasDB);
+    const alpha = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    const af = document.getElementById('alphabetFilter');
+    if (af) af.innerHTML = alpha.map(l =>
+      `<button onclick="filterByLetter('${l}',this)">${l}</button>`
+    ).join('') + `<button onclick="showAllBrands(this)">Todas</button>`;
+  }
+ 
+  function filterByLetter(l, btn) {
+    document.querySelectorAll('.alphabet-filter button').forEach(b => b.classList.remove('alpha-active'));
+    btn.classList.add('alpha-active');
+    renderBrandsPage(marcasDB.filter(m => m.nombre.toUpperCase().startsWith(l)));
+  }
+  function showAllBrands(btn) {
+    document.querySelectorAll('.alphabet-filter button').forEach(b => b.classList.remove('alpha-active'));
+    btn.classList.add('alpha-active');
+    renderBrandsPage(marcasDB);
+  }
+  function filterBrands(q) {
+    renderBrandsPage(marcasDB.filter(m => m.nombre.toLowerCase().includes(q.toLowerCase())));
+  }
+  function renderBrandsPage(data) {
+    const el = document.getElementById('brandsFullGrid');
+    if (!el) return;
+    el.innerHTML = data.map(m => `
+      <div class="brand-card-full" onclick="showView('perfumes')">
+        <div class="brand-initial">${m.nombre[0]}</div>
+        <div class="brand-card-info">
+          <div class="brand-card-name">${m.nombre}</div>
+          <div class="brand-card-country">${m.pais}</div>
+          <div class="brand-card-desc">${m.descripcion}</div>
+        </div>
+        <div class="brand-card-count">${m.perfumes} perfumes</div>
+        <div class="brand-card-arrow">→</div>
+      </div>`).join('');
+  }
+ 
+  // =============================================
+  // DETALLE PERFUME PAGE
+  // =============================================
+  function renderPerfumeDetailPage(p) {
+    const similares = perfumesDB.filter(x => x.id !== p.id && x.familia?.some(f => p.familia?.includes(f))).slice(0,4);
+    const stars = renderStars(p.rating);
+    const wrap = document.getElementById('perfumeDetailWrap');
+    if (!wrap) return;
+    wrap.innerHTML = `
+      <div class="back-btn" onclick="history.back() || showView('perfumes')">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2L3 7l6 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Volver al catálogo
+      </div>
+      <div class="breadcrumb">
+        <a onclick="showView('home')">Inicio</a><span class="sep">/</span>
+        <a onclick="showView('perfumes')">Perfumes</a><span class="sep">/</span>
+        <a onclick="showView('marcas')">${p.marca}</a><span class="sep">/</span>
+        <span class="current">${p.nombre}</span>
+      </div>
+ 
+      <div class="pd-hero">
+        <div class="pd-bottle-col">
+          <div class="pd-bottle" style="background:${p.bottleColor || 'linear-gradient(160deg,#F5EEE4,#D4BC99)'}">
+            <div class="pd-bottle-shine"></div>
+            <div class="pd-bottle-label-wrap">
+              <span class="pd-bottle-name">${p.nombre}</span>
+              <span class="pd-bottle-brand">${p.marca}</span>
+            </div>
+          </div>
+          <div class="pd-actions-col">
+            <button class="pd-action-btn" id="pdLikeBtn" onclick="toggleLike(this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              Me gusta
+            </button>
+            <button class="pd-action-btn" onclick="toggleSave(this)">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+              Guardar
+            </button>
+            <button class="pd-action-btn" onclick="shareThis()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Compartir
+            </button>
+          </div>
+        </div>
+ 
+        <div class="pd-info-col">
+          <div class="pd-brand-link"><a onclick="showView('marcas')">${p.marca}</a></div>
+          <h1 class="pd-name">${p.nombre}</h1>
+          <div class="pd-meta-row">
+            <span class="pd-pill gender">${p.genero}</span>
+            <span class="pd-pill">${p.año}</span>
+            ${p.familia?.map(f => `<span class="pd-pill family">${f}</span>`).join('') || ''}
+          </div>
+          <div class="pd-rating-row">
+            <div>${stars}</div>
+            <span class="pd-rating-num">${p.rating.toFixed(1)}</span>
+            <span class="pd-rating-count">${p.votos.toLocaleString()} votos</span>
+          </div>
+ 
+          <div class="pd-section">
+            <div class="pd-section-title">Pirámide olfativa</div>
+            <div class="pyramid-grid">
+              <div class="pyramid-tier">
+                <div class="pyramid-tier-label">Salida</div>
+                ${p.notas?.salida?.map(n => `<span class="note-chip">${n}</span>`).join('') || ''}
+              </div>
+              <div class="pyramid-tier">
+                <div class="pyramid-tier-label">Corazón</div>
+                ${p.notas?.corazon?.map(n => `<span class="note-chip">${n}</span>`).join('') || ''}
+              </div>
+              <div class="pyramid-tier">
+                <div class="pyramid-tier-label">Fondo</div>
+                ${p.notas?.fondo?.map(n => `<span class="note-chip">${n}</span>`).join('') || ''}
+              </div>
+            </div>
+          </div>
+ 
+          <div class="pd-section">
+            <div class="pd-section-title">Descripción</div>
+            <p class="pd-desc">${p.descripcion || ''}</p>
+          </div>
+        </div>
+      </div>
+ 
+      <div class="pd-community-votes">
+        <h2 class="pd-h2">Votos de la comunidad</h2>
+        <div class="votes-grid">
+          <div class="vote-card">
+            <div class="vote-card-title">Duración</div>
+            <div class="vote-bar-wrap"><div class="vote-bar-track"><div class="vote-bar-fill" style="width:${p.duracion||65}%"></div></div></div>
+            <div class="vote-bar-ends"><span>Efímera</span><span>Larga duración</span></div>
+            <div class="vote-percent">${p.duracion||65}% larga duración</div>
+          </div>
+          <div class="vote-card">
+            <div class="vote-card-title">Proyección</div>
+            <div class="vote-bar-wrap"><div class="vote-bar-track"><div class="vote-bar-fill" style="width:${p.proyeccion||58}%"></div></div></div>
+            <div class="vote-bar-ends"><span>Íntima</span><span>Bestial</span></div>
+            <div class="vote-percent">${p.proyeccion||58}% moderada-fuerte</div>
+          </div>
+          <div class="vote-card">
+            <div class="vote-card-title">Mejor estación</div>
+            <div class="season-chips">
+              ${(p.estacion||[]).map(s => `<span class="season-chip active">${s}</span>`).join('')}
+              ${['primavera','verano','otono','invierno'].filter(s => !(p.estacion||[]).includes(s)).map(s => `<span class="season-chip">${s}</span>`).join('')}
+            </div>
+          </div>
+          <div class="vote-card">
+            <div class="vote-card-title">Momento del día</div>
+            <div class="daytime-bar">
+              <div class="daytime-fill day" style="width:${p.dia||30}%"></div>
+              <div class="daytime-fill night" style="width:${100-(p.dia||30)}%"></div>
+            </div>
+            <div class="daytime-labels"><span>☀ Día ${p.dia||30}%</span><span>☾ Noche ${100-(p.dia||30)}%</span></div>
+          </div>
+        </div>
+        <div class="vote-cta"><button class="btn-vote" onclick="openModal('loginModal')">Votar este perfume</button></div>
+      </div>
+ 
+      <div class="pd-reviews-section">
+        <div class="tabs-bar">
+          <button class="tab active" onclick="switchReviewTab(this,'reviewsList')">Reseñas (${p.reviews?.length||0})</button>
+          <button class="tab" onclick="switchReviewTab(this,'comentarios')">Comentarios</button>
+        </div>
+        <div id="reviewsList" class="tab-panel active">
+          <div class="reviews-list">
+            ${(p.reviews||[]).map(r => `
+              <div class="review-card">
+                <div class="review-header">
+                  <div class="review-avatar">${r.user.slice(0,2).toUpperCase()}</div>
+                  <div>
+                    <div class="review-user">${r.user}</div>
+                    <div class="review-meta">${renderStars(r.rating)} · ${r.fecha}</div>
+                  </div>
+                  <div class="review-likes"><button onclick="likeReview(this)">♡ ${r.likes}</button></div>
+                </div>
+                <p class="review-text">${r.texto}</p>
+                <div class="review-tags">${r.tags?.map(t => `<span>${t}</span>`).join('')||''}</div>
+              </div>`).join('')}
+            ${(p.reviews||[]).length===0 ? '<p class="empty-state">Sé el primero en reseñar este perfume.</p>' : ''}
+          </div>
+          <div class="write-review">
+            <h3>Escribe tu reseña</h3>
+            <div class="star-input" id="starInput">
+              ${[1,2,3,4,5].map(n => `<span onclick="setRating(${n})" data-star="${n}">☆</span>`).join('')}
+            </div>
+            <textarea placeholder="Comparte tu experiencia con esta fragancia..." rows="4"></textarea>
+            <button class="btn-primary" onclick="openModal('loginModal')">Publicar reseña</button>
+          </div>
+        </div>
+        <div id="comentarios" class="tab-panel">
+          <p class="empty-state">Los comentarios están disponibles para usuarios registrados.</p>
+          <button class="btn-primary" onclick="openModal('loginModal')" style="margin-top:12px;">Entrar para comentar</button>
+        </div>
+      </div>
+ 
+      ${similares.length ? `
+      <div class="pd-similar">
+        <h2 class="pd-h2">Perfumes similares</h2>
+        <div class="similar-grid">
+          ${similares.map(s => `
+            <div class="similar-card" onclick="showPerfumeDetail(${s.id})">
+              <div class="similar-bottle" style="background:${s.bottleColor||'linear-gradient(135deg,#F5EEE4,#D4BC99)'}"></div>
+              <div class="similar-info">
+                <div class="similar-name">${s.nombre}</div>
+                <div class="similar-brand">${s.marca}</div>
+                <div>${renderStars(s.rating)}</div>
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>` : ''}
+    `;
+  }
+ 
+  function toggleLike(btn) {
+    btn.classList.toggle('active');
+    btn.innerHTML = btn.classList.contains('active')
+      ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Te gusta`
+      : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Me gusta`;
+  }
+  function toggleSave(btn) {
+    btn.classList.toggle('active');
+    btn.innerHTML = btn.classList.contains('active')
+      ? `<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Guardado`
+      : `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Guardar`;
+  }
+  function shareThis() {
+    const txt = document.querySelector('.pd-name')?.textContent || 'ReKoFum';
+    if (navigator.share) { navigator.share({ title: txt, url: location.href }); }
+    else { navigator.clipboard?.writeText(location.href); alert('¡Enlace copiado al portapapeles!'); }
+  }
+  function switchReviewTab(btn, panelId) {
+    document.querySelectorAll('.tabs-bar .tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(panelId)?.classList.add('active');
+  }
+  function setRating(n) {
+    document.querySelectorAll('#starInput span').forEach((s,i) => {
+      s.textContent = i < n ? '★' : '☆';
+      s.style.color = i < n ? '#C9A86C' : '';
+    });
+  }
+  function likeReview(btn) {
+    const n = parseInt(btn.textContent.replace(/\D/g,''));
+    btn.innerHTML = `♥ ${n+1}`;
+    btn.style.color = '#C9A86C';
+    btn.disabled = true;
+  }
+ 
+  // =============================================
+  // RECOMENDADOR
+  // =============================================
+  const recData = {};
+ 
+  function selectOption(el, key, val) {
+    el.closest('.rec-options').querySelectorAll('.rec-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    recData[key] = val;
+    const nextBtn = el.closest('.rec-step').querySelector('.rec-next');
+    if (nextBtn) nextBtn.disabled = false;
+  }
+ 
+  function toggleRecOption(el, key, val) {
+    el.classList.toggle('selected');
+    if (!recData[key]) recData[key] = [];
+    if (el.classList.contains('selected')) { recData[key].push(val); }
+    else { recData[key] = recData[key].filter(v => v !== val); }
+  }
+ 
+  function nextRecStep(n) {
+    document.querySelectorAll('#recWizard .rec-step').forEach(s => s.classList.remove('active'));
+    const target = document.querySelector(`#recWizard .rec-step[data-step="${n}"]`);
+    if (target) target.classList.add('active');
+    const pct = ((n-1)/4)*100;
+    document.getElementById('recProgress').style.width = pct + '%';
+  }
+ 
+  function showRecommendations() {
+    let results = [...perfumesDB];
+    if (recData.genero) results = results.filter(p => p.genero === recData.genero || p.genero === 'unisex');
+    if (recData.familia?.length) results = results.filter(p => recData.familia.some(f => p.familia?.includes(f)));
+    if (recData.ocasion === 'noche') results = results.filter(p => (p.dia||50) < 50);
+    if (recData.ocasion === 'diario') results = results.filter(p => (p.dia||50) >= 40);
+    if (recData.ocasion === 'especial') results = results.filter(p => (p.proyeccion||50) >= 70);
+    results = results.sort((a,b) => b.rating - a.rating).slice(0,8);
+    if (results.length === 0) results = perfumesDB.slice(0,8);
+ 
+    document.getElementById('recProgress').style.width = '100%';
+    document.getElementById('recWizard').style.display = 'none';
+    const res = document.getElementById('recResults');
+    res.style.display = 'block';
+    document.getElementById('recSubtitle').textContent = `Basándonos en tus preferencias, aquí tienes ${results.length} fragancias perfectas para ti:`;
+    document.getElementById('recResultsGrid').innerHTML = results.map(renderPerfumeCard).join('');
+  }
+ 
+  function restartRec() {
+    Object.keys(recData).forEach(k => delete recData[k]);
+    document.querySelectorAll('#recWizard .rec-option').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('#recWizard .rec-next').forEach(b => { if (b.closest('[data-step="2"]') === null) b.disabled = true; });
+    document.getElementById('recResults').style.display = 'none';
+    document.getElementById('recWizard').style.display = 'block';
+    nextRecStep(1);
+  }
+ 
+  function resetRec() {
+    const wiz = document.getElementById('recWizard');
+    const res = document.getElementById('recResults');
+    if (wiz) wiz.style.display = 'block';
+    if (res) res.style.display = 'none';
+    document.getElementById('recProgress').style.width = '0%';
+  }
+ 
+  // =============================================
+  // COMUNIDAD
+  // =============================================
+  function initComunidadView() {
+    renderPosts(postsDB);
+    const sidebar = document.getElementById('activeUsersSidebar');
+    if (sidebar) sidebar.innerHTML = `
+      <h3>Usuarios activos</h3>
+      ${['marc_olfato','scentvisionary','oud_lover_mad','parfumista_mx','luxe_scentist'].map(u => `
+        <div class="trending-topic" style="gap:12px;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;color:var(--gold);flex-shrink:0;border:0.5px solid var(--gold-border);">${u.slice(0,2).toUpperCase()}</div>
+          <span>${u}</span>
+        </div>`).join('')}`;
+  }
+ 
+  function renderPosts(data) {
+    const el = document.getElementById('postsContainer');
+    if (!el) return;
+    el.innerHTML = data.map(p => `
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar">${p.user.slice(0,2).toUpperCase()}</div>
+          <div><div class="post-user">${p.user}</div><div class="post-time">${p.time}</div></div>
+          <span class="post-cat">${p.cat}</span>
+        </div>
+        <div class="post-title">${p.title}</div>
+        <div class="post-preview">${p.preview}</div>
+        <div class="post-footer">
+          <span class="post-stat" onclick="openModal('loginModal')">💬 ${p.replies} respuestas</span>
+          <span class="post-stat" onclick="openModal('loginModal')">♡ ${p.likes}</span>
+          <span class="post-stat" style="margin-left:auto;color:var(--gold);">Leer más →</span>
+        </div>
+      </div>`).join('');
+  }
+ 
+  function switchForumTab(btn, filter) {
+    document.querySelectorAll('.forum-tabs .tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    let data = [...postsDB];
+    if (filter === 'popular') data.sort((a,b) => b.likes - a.likes);
+    else if (filter === 'resenias') data = data.filter(p => p.cat === 'Reseña');
+    else if (filter === 'preguntas') data = data.filter(p => p.cat === 'Pregunta');
+    renderPosts(data);
+  }
+ 
+  // =============================================
+  // ARTÍCULOS
+  // =============================================
+  function initArticulosView() {
+    renderArticles(articulosDB);
+  }
+ 
+  function renderArticles(data) {
+    const el = document.getElementById('articlesFullGrid');
+    if (!el) return;
+    el.innerHTML = data.map(a => `
+      <div class="article-card" onclick="showView('articulos')">
+        <div class="article-img art-${a.imagen}"></div>
+        <div class="article-info">
+          <span class="article-cat">${a.categoria}</span>
+          <h3 class="article-title">${a.titulo}</h3>
+          <p class="article-resumen">${a.resumen}</p>
+          <span class="article-fecha">${a.fecha}</span>
+        </div>
+      </div>`).join('');
+  }
+ 
+  function filterArticles(cat, btn) {
+    document.querySelectorAll('.article-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    const filtered = cat === 'all' ? articulosDB : articulosDB.filter(a => a.categoria === cat);
+    renderArticles(filtered);
+  }
+  </script>
 </body>
 </html>
+ 
+
+index.html
+Es mostra index.html.
