@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recomendador — ReKoFum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar"><svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Buscar..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a><a href="perfumes.html" class="nav-link">Perfumes</a>
+        <a href="marcas.html" class="nav-link">Marcas</a><a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link">Artículos</a>
+      </nav>
+      <div class="header-actions"><button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button><button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button></div>
+      <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu"><a href="index.html">Inicio</a></div>
+  </header>
+
+  <div class="recommender-page">
+    <div class="rec-hero">
+      <h1>Encuentra tu fragancia ideal</h1>
+      <p>Responde unas preguntas y te encontramos perfumes perfectos para ti</p>
+    </div>
+
+    <div class="rec-wizard" id="recWizard">
+      <!-- PASO 1 -->
+      <div class="rec-step active" data-step="1">
+        <div class="step-counter">Paso 1 de 4</div>
+        <h2>¿Para quién es el perfume?</h2>
+        <div class="rec-options">
+          <div class="rec-option" onclick="selectOption(this, 'genero', 'femenino')">
+            <div class="rec-option-icon">♀</div>
+            <span>Femenino</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'genero', 'masculino')">
+            <div class="rec-option-icon">♂</div>
+            <span>Masculino</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'genero', 'unisex')">
+            <div class="rec-option-icon">⊕</div>
+            <span>Unisex</span>
+          </div>
+        </div>
+        <button class="rec-next" onclick="nextStep(2)" disabled>Siguiente →</button>
+      </div>
+
+      <!-- PASO 2 -->
+      <div class="rec-step" data-step="2">
+        <div class="step-counter">Paso 2 de 4</div>
+        <h2>¿Qué familias olfativas te atraen?</h2>
+        <p class="step-subtitle">Puedes elegir varias</p>
+        <div class="rec-options multi">
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'floral')">
+            <div class="rec-option-icon">🌸</div><span>Floral</span>
+          </div>
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'oriental')">
+            <div class="rec-option-icon">✦</div><span>Oriental</span>
+          </div>
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'amaderado')">
+            <div class="rec-option-icon">◈</div><span>Amaderado</span>
+          </div>
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'citrico')">
+            <div class="rec-option-icon">◎</div><span>Cítrico</span>
+          </div>
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'acuatico')">
+            <div class="rec-option-icon">◌</div><span>Acuático</span>
+          </div>
+          <div class="rec-option" onclick="toggleOption(this, 'familia', 'especiado')">
+            <div class="rec-option-icon">✸</div><span>Especiado</span>
+          </div>
+        </div>
+        <div class="rec-nav">
+          <button class="rec-back" onclick="prevStep(1)">← Atrás</button>
+          <button class="rec-next" onclick="nextStep(3)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- PASO 3 -->
+      <div class="rec-step" data-step="3">
+        <div class="step-counter">Paso 3 de 4</div>
+        <h2>¿Para qué ocasión?</h2>
+        <div class="rec-options">
+          <div class="rec-option" onclick="selectOption(this, 'ocasion', 'diario')">
+            <div class="rec-option-icon">☀</div><span>Día a día</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'ocasion', 'noche')">
+            <div class="rec-option-icon">☽</div><span>Noche / salida</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'ocasion', 'trabajo')">
+            <div class="rec-option-icon">◻</div><span>Trabajo / formal</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'ocasion', 'especial')">
+            <div class="rec-option-icon">★</div><span>Ocasión especial</span>
+          </div>
+        </div>
+        <div class="rec-nav">
+          <button class="rec-back" onclick="prevStep(2)">← Atrás</button>
+          <button class="rec-next" onclick="nextStep(4)" disabled>Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- PASO 4 -->
+      <div class="rec-step" data-step="4">
+        <div class="step-counter">Paso 4 de 4</div>
+        <h2>¿Cuál es tu presupuesto?</h2>
+        <div class="rec-options">
+          <div class="rec-option" onclick="selectOption(this, 'precio', 'bajo')">
+            <div class="rec-option-icon">€</div><span>Hasta 50€</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'precio', 'medio')">
+            <div class="rec-option-icon">€€</div><span>50–150€</span>
+          </div>
+          <div class="rec-option" onclick="selectOption(this, 'precio', 'alto')">
+            <div class="rec-option-icon">€€€</div><span>150€ o más</span>
+          </div>
+        </div>
+        <div class="rec-nav">
+          <button class="rec-back" onclick="prevStep(3)">← Atrás</button>
+          <button class="rec-next" onclick="showRecommendations()" disabled>Ver mis recomendaciones →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESULTADOS -->
+    <div class="rec-results" id="recResults" style="display:none">
+      <h2>Tus recomendaciones personalizadas</h2>
+      <p class="rec-subtitle" id="recSubtitle"></p>
+      <div class="perfume-grid" id="recResultsGrid"></div>
+      <button class="btn-ghost-lg" onclick="restartRec()">Volver a empezar</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs"><button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button></div>
+      <div id="loginTab" class="modal-form active"><h3>Bienvenido de nuevo</h3><input type="email" placeholder="Email"><input type="password" placeholder="Contraseña"><button class="btn-primary-full">Entrar</button></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script><script src="app.js"></script>
+  <script>
+    const recData = {};
+
+    function selectOption(el, key, val) {
+      el.closest('.rec-options').querySelectorAll('.rec-option').forEach(o => o.classList.remove('selected'));
+      el.classList.add('selected');
+      recData[key] = val;
+      el.closest('.rec-step').querySelector('.rec-next').disabled = false;
+    }
+
+    function toggleOption(el, key, val) {
+      el.classList.toggle('selected');
+      if (!recData[key]) recData[key] = [];
+      if (el.classList.contains('selected')) {
+        recData[key].push(val);
+      } else {
+        recData[key] = recData[key].filter(v => v !== val);
+      }
+    }
+
+    function nextStep(n) {
+      document.querySelectorAll('.rec-step').forEach(s => s.classList.remove('active'));
+      document.querySelector(`.rec-step[data-step="${n}"]`).classList.add('active');
+    }
+    function prevStep(n) { nextStep(n); }
+
+    function showRecommendations() {
+      let results = [...perfumesDB];
+      if (recData.genero) results = results.filter(p => p.genero === recData.genero || p.genero === 'unisex');
+      if (recData.familia?.length) results = results.filter(p => recData.familia.some(f => p.familia?.includes(f)));
+      if (recData.ocasion === 'noche') results = results.filter(p => (p.dia || 50) < 50);
+      if (recData.ocasion === 'diario') results = results.filter(p => (p.dia || 50) >= 40);
+      results = results.sort((a,b) => b.rating - a.rating).slice(0,8);
+      if (results.length === 0) results = perfumesDB.slice(0,8);
+
+      document.getElementById('recWizard').style.display = 'none';
+      const res = document.getElementById('recResults');
+      res.style.display = 'block';
+      document.getElementById('recSubtitle').textContent = `Basándonos en tus preferencias, aquí tienes ${results.length} fragancias perfectas para ti:`;
+      renderCatalog(results, 'recResultsGrid');
+    }
+
+    function restartRec() {
+      Object.keys(recData).forEach(k => delete recData[k]);
+      document.querySelectorAll('.rec-option').forEach(o => o.classList.remove('selected'));
+      document.querySelectorAll('.rec-next').forEach(b => b.disabled = true);
+      document.getElementById('recResults').style.display = 'none';
+      document.getElementById('recWizard').style.display = 'block';
+      nextStep(1);
+    }
+  </script>
+</body>
+</html>
+
