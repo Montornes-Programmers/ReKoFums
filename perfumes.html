@@ -1,0 +1,209 @@
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Perfumes — ReKoFum</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar" id="searchBar">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Perfumes, marcas, notas..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link">Inicio</a>
+        <a href="perfumes.html" class="nav-link active">Perfumes</a>
+        <a href="marcas.html" class="nav-link">Marcas</a>
+        <a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link">Artículos</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button>
+        <button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button>
+      </div>
+      <button class="menu-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Inicio</a><a href="perfumes.html">Perfumes</a>
+      <a href="marcas.html">Marcas</a><a href="comunidad.html">Comunidad</a>
+    </div>
+  </header>
+
+  <div class="catalog-layout">
+    <!-- SIDEBAR FILTROS -->
+    <aside class="filters-sidebar" id="filtersSidebar">
+      <div class="filters-header">
+        <h3>Filtros</h3>
+        <button onclick="resetFilters()" class="reset-btn">Limpiar</button>
+      </div>
+
+      <div class="filter-group">
+        <h4>Género</h4>
+        <label class="filter-check"><input type="checkbox" value="femenino" onchange="applyFilters()"><span>Femenino</span></label>
+        <label class="filter-check"><input type="checkbox" value="masculino" onchange="applyFilters()"><span>Masculino</span></label>
+        <label class="filter-check"><input type="checkbox" value="unisex" onchange="applyFilters()"><span>Unisex</span></label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Familia olfativa</h4>
+        <label class="filter-check"><input type="checkbox" value="floral" onchange="applyFilters()"><span>Floral</span></label>
+        <label class="filter-check"><input type="checkbox" value="oriental" onchange="applyFilters()"><span>Oriental</span></label>
+        <label class="filter-check"><input type="checkbox" value="amaderado" onchange="applyFilters()"><span>Amaderado</span></label>
+        <label class="filter-check"><input type="checkbox" value="citrico" onchange="applyFilters()"><span>Cítrico</span></label>
+        <label class="filter-check"><input type="checkbox" value="acuatico" onchange="applyFilters()"><span>Acuático</span></label>
+        <label class="filter-check"><input type="checkbox" value="especiado" onchange="applyFilters()"><span>Especiado</span></label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Estación</h4>
+        <label class="filter-check"><input type="checkbox" value="primavera" onchange="applyFilters()"><span>Primavera</span></label>
+        <label class="filter-check"><input type="checkbox" value="verano" onchange="applyFilters()"><span>Verano</span></label>
+        <label class="filter-check"><input type="checkbox" value="otono" onchange="applyFilters()"><span>Otoño</span></label>
+        <label class="filter-check"><input type="checkbox" value="invierno" onchange="applyFilters()"><span>Invierno</span></label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Precio orientativo</h4>
+        <label class="filter-check"><input type="checkbox" value="bajo" onchange="applyFilters()"><span>Hasta 50€</span></label>
+        <label class="filter-check"><input type="checkbox" value="medio" onchange="applyFilters()"><span>50–150€</span></label>
+        <label class="filter-check"><input type="checkbox" value="alto" onchange="applyFilters()"><span>150€+</span></label>
+      </div>
+
+      <div class="filter-group">
+        <h4>Año</h4>
+        <div class="range-group">
+          <input type="range" min="1950" max="2025" value="1950" id="yearFrom" oninput="updateYearRange()">
+          <div class="range-labels">
+            <span id="yearFromLabel">1950</span>
+            <span id="yearToLabel">2025</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-primary-full" onclick="applyFilters()">Aplicar filtros</button>
+    </aside>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="catalog-main">
+      <div class="catalog-top">
+        <h1 class="page-title">Catálogo de Perfumes</h1>
+        <div class="catalog-controls">
+          <span class="result-count" id="resultCount">Cargando...</span>
+          <select onchange="sortPerfumes(this.value)" class="sort-select">
+            <option value="popular">Más populares</option>
+            <option value="nuevo">Más recientes</option>
+            <option value="rating">Mejor valorados</option>
+            <option value="az">A–Z</option>
+          </select>
+          <div class="view-toggle">
+            <button class="view-btn active" id="gridBtn" onclick="setView('grid')">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="6" height="6" rx="1"/><rect x="8" y="0" width="6" height="6" rx="1"/><rect x="0" y="8" width="6" height="6" rx="1"/><rect x="8" y="8" width="6" height="6" rx="1"/></svg>
+            </button>
+            <button class="view-btn" id="listBtn" onclick="setView('list')">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="0" y="0" width="14" height="2" rx="1"/><rect x="0" y="6" width="14" height="2" rx="1"/><rect x="0" y="12" width="14" height="2" rx="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- BÚSQUEDA ACTIVA -->
+      <div class="active-filters" id="activeFilters"></div>
+
+      <div class="perfume-catalog-grid" id="catalogGrid"></div>
+
+      <div class="pagination" id="pagination"></div>
+    </main>
+  </div>
+
+  <!-- MODAL LOGIN -->
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button>
+        <button class="modal-tab" onclick="switchTab(this,'registerTab')">Registrarse</button>
+      </div>
+      <div id="loginTab" class="modal-form active">
+        <h3>Bienvenido de nuevo</h3>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Entrar</button>
+      </div>
+      <div id="registerTab" class="modal-form">
+        <h3>Únete a ReKoFum</h3>
+        <input type="text" placeholder="Nombre de usuario">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Crear cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCatalog(perfumesDB, 'catalogGrid');
+      document.getElementById('resultCount').textContent = perfumesDB.length + ' perfumes';
+    });
+    let currentView = 'grid';
+    function setView(v) {
+      currentView = v;
+      document.getElementById('catalogGrid').className = v === 'list' ? 'perfume-catalog-list' : 'perfume-catalog-grid';
+      document.getElementById('gridBtn').classList.toggle('active', v === 'grid');
+      document.getElementById('listBtn').classList.toggle('active', v === 'list');
+      renderCatalog(getCurrentFiltered(), 'catalogGrid', v);
+    }
+    function getCurrentFiltered() {
+      return window._filtered || perfumesDB;
+    }
+    function resetFilters() {
+      document.querySelectorAll('.filter-check input').forEach(el => el.checked = false);
+      renderCatalog(perfumesDB, 'catalogGrid');
+      document.getElementById('resultCount').textContent = perfumesDB.length + ' perfumes';
+      document.getElementById('activeFilters').innerHTML = '';
+    }
+    function applyFilters() {
+      const checked = [...document.querySelectorAll('.filter-check input:checked')].map(el => el.value);
+      let filtered = perfumesDB;
+      const genders = checked.filter(v => ['femenino','masculino','unisex'].includes(v));
+      const families = checked.filter(v => ['floral','oriental','amaderado','citrico','acuatico','especiado'].includes(v));
+      const seasons = checked.filter(v => ['primavera','verano','otono','invierno'].includes(v));
+      if (genders.length) filtered = filtered.filter(p => genders.includes(p.genero));
+      if (families.length) filtered = filtered.filter(p => families.some(f => p.familia?.includes(f)));
+      if (seasons.length) filtered = filtered.filter(p => seasons.some(s => p.estacion?.includes(s)));
+      window._filtered = filtered;
+      renderCatalog(filtered, 'catalogGrid', currentView);
+      document.getElementById('resultCount').textContent = filtered.length + ' perfumes';
+      const af = document.getElementById('activeFilters');
+      af.innerHTML = checked.map(c => `<span class="af-tag">${c} <button onclick="removeFilter('${c}')">✕</button></span>`).join('');
+    }
+    function removeFilter(val) {
+      const el = document.querySelector(`.filter-check input[value="${val}"]`);
+      if (el) { el.checked = false; applyFilters(); }
+    }
+    function sortPerfumes(by) {
+      let data = [...(window._filtered || perfumesDB)];
+      if (by === 'nuevo') data.sort((a,b) => b.año - a.año);
+      else if (by === 'rating') data.sort((a,b) => b.rating - a.rating);
+      else if (by === 'az') data.sort((a,b) => a.nombre.localeCompare(b.nombre));
+      else data.sort((a,b) => b.votos - a.votos);
+      renderCatalog(data, 'catalogGrid', currentView);
+    }
+    function updateYearRange() {
+      const val = document.getElementById('yearFrom').value;
+      document.getElementById('yearFromLabel').textContent = val;
+    }
+  </script>
+</body>
+</html>
+
