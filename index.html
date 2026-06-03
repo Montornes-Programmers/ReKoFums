@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ReKoFum — Descubre tu fragancia</title>
+  <meta name="description" content="ReKoFum: la plataforma de referencia para amantes de la perfumería. Base de datos, reseñas, comunidad y recomendaciones personalizadas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
 
+  <!-- HEADER -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">Reko<span>Fum</span></a>
+      <div class="search-bar" id="searchBar">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" id="searchInput" placeholder="Perfumes, marcas, notas..." autocomplete="off">
+        <div class="search-dropdown" id="searchDropdown"></div>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html" class="nav-link active">Inicio</a>
+        <a href="perfumes.html" class="nav-link">Perfumes</a>
+        <a href="marcas.html" class="nav-link">Marcas</a>
+        <a href="comunidad.html" class="nav-link">Comunidad</a>
+        <a href="articulos.html" class="nav-link">Artículos</a>
+      </nav>
+      <div class="header-actions">
+        <button class="btn-ghost" onclick="openModal('loginModal')">Entrar</button>
+        <button class="btn-primary" onclick="openModal('loginModal')">Registrarse</button>
+      </div>
+      <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="index.html">Inicio</a>
+      <a href="perfumes.html">Perfumes</a>
+      <a href="marcas.html">Marcas</a>
+      <a href="comunidad.html">Comunidad</a>
+      <a href="articulos.html">Artículos</a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">La enciclopedia de la perfumería</p>
+      <h1 class="hero-title">Descubre tu<br><em>fragancia perfecta</em></h1>
+      <p class="hero-subtitle">Base de datos de +18.000 perfumes. Reseñas auténticas. Recomendaciones personalizadas.</p>
+      <div class="hero-search">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10.5 10.5L14 14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <input type="text" placeholder="¿Qué fragancia buscas?" oninput="heroSearch(this.value)">
+        <button onclick="goTo('perfumes.html')">Explorar</button>
+      </div>
+      <div class="hero-tags">
+        <span onclick="goTo('perfumes.html?filtro=femenino')">Femenino</span>
+        <span onclick="goTo('perfumes.html?filtro=masculino')">Masculino</span>
+        <span onclick="goTo('perfumes.html?filtro=unisex')">Unisex</span>
+        <span onclick="goTo('perfumes.html?nota=oriental')">Orientales</span>
+        <span onclick="goTo('perfumes.html?nota=floral')">Florales</span>
+        <span onclick="goTo('perfumes.html?nota=amaderado')">Amaderados</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="floating-bottles">
+        <div class="bottle b1" onclick="goTo('perfume.html?id=1')">
+          <div class="bottle-img img1"></div>
+          <span>N°5</span>
+        </div>
+        <div class="bottle b2" onclick="goTo('perfume.html?id=2')">
+          <div class="bottle-img img2"></div>
+          <span>Jazz Club</span>
+        </div>
+        <div class="bottle b3" onclick="goTo('perfume.html?id=3')">
+          <div class="bottle-img img3"></div>
+          <span>Sauvage</span>
+        </div>
+        <div class="bottle b4" onclick="goTo('perfume.html?id=4')">
+          <div class="bottle-img img4"></div>
+          <span>Black Orchid</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats-bar">
+    <div class="stat"><strong>18.420</strong><span>Perfumes</span></div>
+    <div class="stat"><strong>3.210</strong><span>Marcas</span></div>
+    <div class="stat"><strong>94.700</strong><span>Reseñas</span></div>
+    <div class="stat"><strong>41.200</strong><span>Usuarios</span></div>
+  </section>
+
+  <!-- TRENDING -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Tendencias esta semana</h2>
+      <a href="perfumes.html" class="see-all">Ver todos →</a>
+    </div>
+    <div class="perfume-grid" id="trendingGrid"></div>
+  </section>
+
+  <!-- RECOMENDADOR -->
+  <section class="recommender-banner">
+    <div class="recommender-content">
+      <p class="rec-eyebrow">Motor de recomendación</p>
+      <h2>¿No sabes qué perfume elegir?</h2>
+      <p>Cuéntanos qué notas te gustan y te encontramos tu fragancia ideal entre miles de opciones.</p>
+      <button class="btn-primary-lg" onclick="goTo('recomendador.html')">Empezar →</button>
+    </div>
+    <div class="rec-notes">
+      <div class="note-bubble n1">Vainilla</div>
+      <div class="note-bubble n2">Cedro</div>
+      <div class="note-bubble n3">Rosa</div>
+      <div class="note-bubble n4">Pachulí</div>
+      <div class="note-bubble n5">Jazmín</div>
+      <div class="note-bubble n6">Ámbar</div>
+    </div>
+  </section>
+
+  <!-- NOVEDADES -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Lanzamientos recientes</h2>
+      <a href="perfumes.html?orden=nuevo" class="see-all">Ver todos →</a>
+    </div>
+    <div class="perfume-grid" id="newGrid"></div>
+  </section>
+
+  <!-- TOP MARCAS -->
+  <section class="section brands-section">
+    <div class="section-header">
+      <h2 class="section-title">Marcas destacadas</h2>
+      <a href="marcas.html" class="see-all">Ver todas →</a>
+    </div>
+    <div class="brands-grid" id="brandsGrid"></div>
+  </section>
+
+  <!-- ARTÍCULOS EDITORIAL -->
+  <section class="section">
+    <div class="section-header">
+      <h2 class="section-title">Editorial</h2>
+      <a href="articulos.html" class="see-all">Todos los artículos →</a>
+    </div>
+    <div class="articles-grid" id="articlesGrid"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo footer-logo">Reko<span>Fum</span></div>
+        <p>La plataforma de referencia para amantes de la perfumería. Descubre, comparte y encuentra tu fragancia perfecta.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Explorar</h4>
+          <a href="perfumes.html">Perfumes</a>
+          <a href="marcas.html">Marcas</a>
+          <a href="perfumes.html?nota=top">Top 100</a>
+          <a href="recomendador.html">Recomendador</a>
+        </div>
+        <div class="footer-col">
+          <h4>Comunidad</h4>
+          <a href="comunidad.html">Foro</a>
+          <a href="articulos.html">Artículos</a>
+          <a href="#">Novedades</a>
+          <a href="#">Guías</a>
+        </div>
+        <div class="footer-col">
+          <h4>ReKoFum</h4>
+          <a href="#">Sobre nosotros</a>
+          <a href="#">Contacto</a>
+          <a href="#">Privacidad</a>
+          <a href="#">Términos</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 ReKoFum. Hecho con pasión por la perfumería.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL LOGIN -->
+  <div class="modal-overlay" id="loginModal" onclick="closeModal('loginModal')">
+    <div class="modal" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('loginModal')">✕</button>
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchTab(this,'loginTab')">Entrar</button>
+        <button class="modal-tab" onclick="switchTab(this,'registerTab')">Registrarse</button>
+      </div>
+      <div id="loginTab" class="modal-form active">
+        <h3>Bienvenido de nuevo</h3>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Entrar</button>
+        <div class="modal-divider"><span>o continúa con</span></div>
+        <button class="btn-oauth">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continuar con Google
+        </button>
+      </div>
+      <div id="registerTab" class="modal-form">
+        <h3>Únete a ReKoFum</h3>
+        <input type="text" placeholder="Nombre de usuario">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Contraseña">
+        <button class="btn-primary-full">Crear cuenta</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
